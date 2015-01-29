@@ -1,0 +1,903 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CasemiDesenvolvimentoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="DepartamentoID" />
+          </Key>
+          <Property Name="DepartamentoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DependenteTipos">
+          <Key>
+            <PropertyRef Name="DependenteTipoID" />
+          </Key>
+          <Property Name="DependenteTipoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessoaAssociado">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Matricula" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DepartamentoID" Type="uniqueidentifier" />
+          <Property Name="Profissao" Type="nvarchar" MaxLength="128" />
+          <Property Name="RendaMensal" Type="money" />
+          <Property Name="LimiteDeCredito" Type="money" />
+          <Property Name="AssociadoDesde" Type="datetime" Nullable="false" />
+          <Property Name="Aposentado" Type="bit" Nullable="false" />
+          <Property Name="Afastado" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessoaContatos">
+          <Key>
+            <PropertyRef Name="PessoaContatoID" />
+          </Key>
+          <Property Name="PessoaContatoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Departamento" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="128" />
+          <Property Name="Telefone1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefone2" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PessoaDependentes">
+          <Key>
+            <PropertyRef Name="PessoaDependenteID" />
+          </Key>
+          <Property Name="PessoaDependenteID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="DataDeNascimento" Type="datetime" Nullable="false" />
+          <Property Name="DependenteTipoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AssociadoDesde" Type="datetime" Nullable="false" />
+          <Property Name="Observacao" Type="text" />
+          <Property Name="Ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessoaDocumentos">
+          <Key>
+            <PropertyRef Name="PessoaDocumentoID" />
+          </Key>
+          <Property Name="PessoaDocumentoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Valor" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessoaEnderecos">
+          <Key>
+            <PropertyRef Name="PessoaEnderecoID" />
+          </Key>
+          <Property Name="PessoaEnderecoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CEP" Type="nvarchar" MaxLength="10" />
+          <Property Name="Logradouro" Type="nvarchar" MaxLength="128" />
+          <Property Name="Numero" Type="nvarchar" MaxLength="50" />
+          <Property Name="Complemento" Type="nvarchar" MaxLength="50" />
+          <Property Name="Bairro" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cidade" Type="nvarchar" MaxLength="128" />
+          <Property Name="UF" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PessoaFisica">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CPF" Type="nvarchar" MaxLength="50" />
+          <Property Name="Sexo" Type="nvarchar" MaxLength="50" />
+          <Property Name="DataDeNascimento" Type="datetime" />
+          <Property Name="Naturalidade" Type="nvarchar" MaxLength="50" />
+          <Property Name="NomeDoPai" Type="nvarchar" MaxLength="128" />
+          <Property Name="NomeDaMae" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="PessoaJuridica">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CNPJ" Type="nvarchar" MaxLength="50" />
+          <Property Name="InscricaoMunicipal" Type="nvarchar" MaxLength="50" />
+          <Property Name="InscricaoEstadual" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Pessoas">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="128" />
+          <Property Name="Observacao" Type="text" />
+          <Property Name="TipoPessoa" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ativo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessoasPessoaTipos">
+          <Key>
+            <PropertyRef Name="PessoaPessoaTipoID" />
+          </Key>
+          <Property Name="PessoaPessoaTipoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PessoaTipoID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessoaTelefones">
+          <Key>
+            <PropertyRef Name="PessoaTelefoneID" />
+          </Key>
+          <Property Name="PessoaTelefoneID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Numero" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PessoaTipos">
+          <Key>
+            <PropertyRef Name="PessoaTipoID" />
+          </Key>
+          <Property Name="PessoaTipoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PessoaAssociado_Departamentos">
+          <End Role="Departamentos" Type="Self.Departamentos" Multiplicity="0..1" />
+          <End Role="PessoaAssociado" Type="Self.PessoaAssociado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="DepartamentoID" />
+            </Principal>
+            <Dependent Role="PessoaAssociado">
+              <PropertyRef Name="DepartamentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaAssociado_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="PessoaAssociado" Type="Self.PessoaAssociado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaAssociado">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaContatos_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PessoaContatos" Type="Self.PessoaContatos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaContatos">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaDependentes_DependenteTipos">
+          <End Role="DependenteTipos" Type="Self.DependenteTipos" Multiplicity="1" />
+          <End Role="PessoaDependentes" Type="Self.PessoaDependentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DependenteTipos">
+              <PropertyRef Name="DependenteTipoID" />
+            </Principal>
+            <Dependent Role="PessoaDependentes">
+              <PropertyRef Name="DependenteTipoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaDependentes_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="PessoaDependentes" Type="Self.PessoaDependentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaDependentes">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaDocumentos_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PessoaDocumentos" Type="Self.PessoaDocumentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaDocumentos">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaEnderecos_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PessoaEnderecos" Type="Self.PessoaEnderecos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaEnderecos">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaFisica_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="PessoaFisica" Type="Self.PessoaFisica" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaFisica">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaJuridica_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="PessoaJuridica" Type="Self.PessoaJuridica" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaJuridica">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoasPessoaTipos_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="PessoasPessoaTipos" Type="Self.PessoasPessoaTipos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoasPessoaTipos">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoasPessoaTipos_PessoaTipos">
+          <End Role="PessoaTipos" Type="Self.PessoaTipos" Multiplicity="1" />
+          <End Role="PessoasPessoaTipos" Type="Self.PessoasPessoaTipos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PessoaTipos">
+              <PropertyRef Name="PessoaTipoID" />
+            </Principal>
+            <Dependent Role="PessoasPessoaTipos">
+              <PropertyRef Name="PessoaTipoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaTelefones_Pessoas">
+          <End Role="Pessoas" Type="Self.Pessoas" Multiplicity="1" />
+          <End Role="PessoaTelefones" Type="Self.PessoaTelefones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaTelefones">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CasemiDesenvolvimentoModelStoreContainer">
+          <EntitySet Name="Departamentos" EntityType="Self.Departamentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DependenteTipos" EntityType="Self.DependenteTipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaAssociado" EntityType="Self.PessoaAssociado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaContatos" EntityType="Self.PessoaContatos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaDependentes" EntityType="Self.PessoaDependentes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaDocumentos" EntityType="Self.PessoaDocumentos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaEnderecos" EntityType="Self.PessoaEnderecos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaFisica" EntityType="Self.PessoaFisica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaJuridica" EntityType="Self.PessoaJuridica" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pessoas" EntityType="Self.Pessoas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoasPessoaTipos" EntityType="Self.PessoasPessoaTipos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaTelefones" EntityType="Self.PessoaTelefones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PessoaTipos" EntityType="Self.PessoaTipos" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PessoaAssociado_Departamentos" Association="Self.FK_PessoaAssociado_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="PessoaAssociado" EntitySet="PessoaAssociado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaAssociado_Pessoas" Association="Self.FK_PessoaAssociado_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaAssociado" EntitySet="PessoaAssociado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaContatos_Pessoas" Association="Self.FK_PessoaContatos_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaContatos" EntitySet="PessoaContatos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaDependentes_DependenteTipos" Association="Self.FK_PessoaDependentes_DependenteTipos">
+            <End Role="DependenteTipos" EntitySet="DependenteTipos" />
+            <End Role="PessoaDependentes" EntitySet="PessoaDependentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaDependentes_Pessoas" Association="Self.FK_PessoaDependentes_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaDependentes" EntitySet="PessoaDependentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaDocumentos_Pessoas" Association="Self.FK_PessoaDocumentos_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaDocumentos" EntitySet="PessoaDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaEnderecos_Pessoas" Association="Self.FK_PessoaEnderecos_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaEnderecos" EntitySet="PessoaEnderecos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaFisica_Pessoas" Association="Self.FK_PessoaFisica_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaFisica" EntitySet="PessoaFisica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaJuridica_Pessoas" Association="Self.FK_PessoaJuridica_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaJuridica" EntitySet="PessoaJuridica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoasPessoaTipos_Pessoas" Association="Self.FK_PessoasPessoaTipos_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoasPessoaTipos" EntitySet="PessoasPessoaTipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoasPessoaTipos_PessoaTipos" Association="Self.FK_PessoasPessoaTipos_PessoaTipos">
+            <End Role="PessoaTipos" EntitySet="PessoaTipos" />
+            <End Role="PessoasPessoaTipos" EntitySet="PessoasPessoaTipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaTelefones_Pessoas" Association="Self.FK_PessoaTelefones_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaTelefones" EntitySet="PessoaTelefones" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CasemiDesenvolvimentoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CasemiDesenvolvimentoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departamentos" EntityType="CasemiDesenvolvimentoModel.Departamentos" />
+          <EntitySet Name="DependenteTipos" EntityType="CasemiDesenvolvimentoModel.DependenteTipos" />
+          <EntitySet Name="PessoaAssociado" EntityType="CasemiDesenvolvimentoModel.PessoaAssociado" />
+          <EntitySet Name="PessoaContatos" EntityType="CasemiDesenvolvimentoModel.PessoaContatos" />
+          <EntitySet Name="PessoaDependentes" EntityType="CasemiDesenvolvimentoModel.PessoaDependentes" />
+          <EntitySet Name="PessoaDocumentos" EntityType="CasemiDesenvolvimentoModel.PessoaDocumentos" />
+          <EntitySet Name="PessoaEnderecos" EntityType="CasemiDesenvolvimentoModel.PessoaEnderecos" />
+          <EntitySet Name="PessoaFisica" EntityType="CasemiDesenvolvimentoModel.PessoaFisica" />
+          <EntitySet Name="PessoaJuridica" EntityType="CasemiDesenvolvimentoModel.PessoaJuridica" />
+          <EntitySet Name="Pessoas" EntityType="CasemiDesenvolvimentoModel.Pessoas" />
+          <EntitySet Name="PessoasPessoaTipos" EntityType="CasemiDesenvolvimentoModel.PessoasPessoaTipos" />
+          <EntitySet Name="PessoaTelefones" EntityType="CasemiDesenvolvimentoModel.PessoaTelefones" />
+          <EntitySet Name="PessoaTipos" EntityType="CasemiDesenvolvimentoModel.PessoaTipos" />
+          <AssociationSet Name="FK_PessoaAssociado_Departamentos" Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="PessoaAssociado" EntitySet="PessoaAssociado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaDependentes_DependenteTipos" Association="CasemiDesenvolvimentoModel.FK_PessoaDependentes_DependenteTipos">
+            <End Role="DependenteTipos" EntitySet="DependenteTipos" />
+            <End Role="PessoaDependentes" EntitySet="PessoaDependentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaAssociado_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaAssociado" EntitySet="PessoaAssociado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaContatos_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaContatos_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaContatos" EntitySet="PessoaContatos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaDependentes_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaDependentes_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaDependentes" EntitySet="PessoaDependentes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaDocumentos_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaDocumentos_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaDocumentos" EntitySet="PessoaDocumentos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaEnderecos_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaEnderecos_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaEnderecos" EntitySet="PessoaEnderecos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaFisica_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaFisica_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaFisica" EntitySet="PessoaFisica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaJuridica_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaJuridica_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaJuridica" EntitySet="PessoaJuridica" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoasPessoaTipos_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoasPessoaTipos" EntitySet="PessoasPessoaTipos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaTelefones_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaTelefones_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaTelefones" EntitySet="PessoaTelefones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoasPessoaTipos_PessoaTipos" Association="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_PessoaTipos">
+            <End Role="PessoaTipos" EntitySet="PessoaTipos" />
+            <End Role="PessoasPessoaTipos" EntitySet="PessoasPessoaTipos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Departamentos">
+          <Key>
+            <PropertyRef Name="DepartamentoID" />
+          </Key>
+          <Property Name="DepartamentoID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PessoaAssociado" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos" FromRole="Departamentos" ToRole="PessoaAssociado" />
+        </EntityType>
+        <EntityType Name="DependenteTipos">
+          <Key>
+            <PropertyRef Name="DependenteTipoID" />
+          </Key>
+          <Property Name="DependenteTipoID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PessoaDependentes" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDependentes_DependenteTipos" FromRole="DependenteTipos" ToRole="PessoaDependentes" />
+        </EntityType>
+        <EntityType Name="PessoaAssociado">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="Matricula" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartamentoID" Type="Guid" />
+          <Property Name="Profissao" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RendaMensal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LimiteDeCredito" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AssociadoDesde" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Aposentado" Type="Boolean" Nullable="false" />
+          <Property Name="Afastado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Departamentos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos" FromRole="PessoaAssociado" ToRole="Departamentos" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" FromRole="PessoaAssociado" ToRole="Pessoas" />
+        </EntityType>
+        <EntityType Name="PessoaContatos">
+          <Key>
+            <PropertyRef Name="PessoaContatoID" />
+          </Key>
+          <Property Name="PessoaContatoID" Type="Guid" Nullable="false" />
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Departamento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Telefone1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefone2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaContatos_Pessoas" FromRole="PessoaContatos" ToRole="Pessoas" />
+        </EntityType>
+        <EntityType Name="PessoaDependentes">
+          <Key>
+            <PropertyRef Name="PessoaDependenteID" />
+          </Key>
+          <Property Name="PessoaDependenteID" Type="Guid" Nullable="false" />
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="DataDeNascimento" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DependenteTipoID" Type="Guid" Nullable="false" />
+          <Property Name="AssociadoDesde" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Observacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="DependenteTipos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDependentes_DependenteTipos" FromRole="PessoaDependentes" ToRole="DependenteTipos" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDependentes_Pessoas" FromRole="PessoaDependentes" ToRole="Pessoas" />
+        </EntityType>
+        <EntityType Name="PessoaDocumentos">
+          <Key>
+            <PropertyRef Name="PessoaDocumentoID" />
+          </Key>
+          <Property Name="PessoaDocumentoID" Type="Guid" Nullable="false" />
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Valor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDocumentos_Pessoas" FromRole="PessoaDocumentos" ToRole="Pessoas" />
+        </EntityType>
+        <EntityType Name="PessoaEnderecos">
+          <Key>
+            <PropertyRef Name="PessoaEnderecoID" />
+          </Key>
+          <Property Name="PessoaEnderecoID" Type="Guid" Nullable="false" />
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CEP" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Logradouro" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Numero" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Bairro" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cidade" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaEnderecos_Pessoas" FromRole="PessoaEnderecos" ToRole="Pessoas" />
+        </EntityType>
+        <EntityType Name="PessoaFisica">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="CPF" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Sexo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DataDeNascimento" Type="DateTime" Precision="3" />
+          <Property Name="Naturalidade" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NomeDoPai" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="NomeDaMae" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaFisica_Pessoas" FromRole="PessoaFisica" ToRole="Pessoas" />
+        </EntityType>
+        <EntityType Name="PessoaJuridica">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="CNPJ" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InscricaoMunicipal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="InscricaoEstadual" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaJuridica_Pessoas" FromRole="PessoaJuridica" ToRole="Pessoas" />
+        </EntityType>
+        <EntityType Name="Pessoas">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Observacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPessoa" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ativo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="PessoaAssociado" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" FromRole="Pessoas" ToRole="PessoaAssociado" />
+          <NavigationProperty Name="PessoaContatos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaContatos_Pessoas" FromRole="Pessoas" ToRole="PessoaContatos" />
+          <NavigationProperty Name="PessoaDependentes" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDependentes_Pessoas" FromRole="Pessoas" ToRole="PessoaDependentes" />
+          <NavigationProperty Name="PessoaDocumentos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDocumentos_Pessoas" FromRole="Pessoas" ToRole="PessoaDocumentos" />
+          <NavigationProperty Name="PessoaEnderecos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaEnderecos_Pessoas" FromRole="Pessoas" ToRole="PessoaEnderecos" />
+          <NavigationProperty Name="PessoaFisica" Relationship="CasemiDesenvolvimentoModel.FK_PessoaFisica_Pessoas" FromRole="Pessoas" ToRole="PessoaFisica" />
+          <NavigationProperty Name="PessoaJuridica" Relationship="CasemiDesenvolvimentoModel.FK_PessoaJuridica_Pessoas" FromRole="Pessoas" ToRole="PessoaJuridica" />
+          <NavigationProperty Name="PessoasPessoaTipos" Relationship="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_Pessoas" FromRole="Pessoas" ToRole="PessoasPessoaTipos" />
+          <NavigationProperty Name="PessoaTelefones" Relationship="CasemiDesenvolvimentoModel.FK_PessoaTelefones_Pessoas" FromRole="Pessoas" ToRole="PessoaTelefones" />
+        </EntityType>
+        <EntityType Name="PessoasPessoaTipos">
+          <Key>
+            <PropertyRef Name="PessoaPessoaTipoID" />
+          </Key>
+          <Property Name="PessoaPessoaTipoID" Type="Guid" Nullable="false" />
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="PessoaTipoID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_Pessoas" FromRole="PessoasPessoaTipos" ToRole="Pessoas" />
+          <NavigationProperty Name="PessoaTipos" Relationship="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_PessoaTipos" FromRole="PessoasPessoaTipos" ToRole="PessoaTipos" />
+        </EntityType>
+        <EntityType Name="PessoaTelefones">
+          <Key>
+            <PropertyRef Name="PessoaTelefoneID" />
+          </Key>
+          <Property Name="PessoaTelefoneID" Type="Guid" Nullable="false" />
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaTelefones_Pessoas" FromRole="PessoaTelefones" ToRole="Pessoas" />
+        </EntityType>
+        <EntityType Name="PessoaTipos">
+          <Key>
+            <PropertyRef Name="PessoaTipoID" />
+          </Key>
+          <Property Name="PessoaTipoID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PessoasPessoaTipos" Relationship="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_PessoaTipos" FromRole="PessoaTipos" ToRole="PessoasPessoaTipos" />
+        </EntityType>
+        <Association Name="FK_PessoaAssociado_Departamentos">
+          <End Type="CasemiDesenvolvimentoModel.Departamentos" Role="Departamentos" Multiplicity="0..1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoaAssociado" Role="PessoaAssociado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="DepartamentoID" />
+            </Principal>
+            <Dependent Role="PessoaAssociado">
+              <PropertyRef Name="DepartamentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaDependentes_DependenteTipos">
+          <End Type="CasemiDesenvolvimentoModel.DependenteTipos" Role="DependenteTipos" Multiplicity="1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoaDependentes" Role="PessoaDependentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DependenteTipos">
+              <PropertyRef Name="DependenteTipoID" />
+            </Principal>
+            <Dependent Role="PessoaDependentes">
+              <PropertyRef Name="DependenteTipoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaAssociado_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoaAssociado" Role="PessoaAssociado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaAssociado">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaContatos_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CasemiDesenvolvimentoModel.PessoaContatos" Role="PessoaContatos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaContatos">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaDependentes_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoaDependentes" Role="PessoaDependentes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaDependentes">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaDocumentos_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CasemiDesenvolvimentoModel.PessoaDocumentos" Role="PessoaDocumentos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaDocumentos">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaEnderecos_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CasemiDesenvolvimentoModel.PessoaEnderecos" Role="PessoaEnderecos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaEnderecos">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaFisica_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoaFisica" Role="PessoaFisica" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaFisica">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaJuridica_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoaJuridica" Role="PessoaJuridica" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaJuridica">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoasPessoaTipos_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoasPessoaTipos" Role="PessoasPessoaTipos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoasPessoaTipos">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaTelefones_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoaTelefones" Role="PessoaTelefones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaTelefones">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoasPessoaTipos_PessoaTipos">
+          <End Type="CasemiDesenvolvimentoModel.PessoaTipos" Role="PessoaTipos" Multiplicity="1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoasPessoaTipos" Role="PessoasPessoaTipos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PessoaTipos">
+              <PropertyRef Name="PessoaTipoID" />
+            </Principal>
+            <Dependent Role="PessoasPessoaTipos">
+              <PropertyRef Name="PessoaTipoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CasemiDesenvolvimentoModelStoreContainer" CdmEntityContainer="CasemiDesenvolvimentoEntities">
+          <EntitySetMapping Name="Departamentos">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.Departamentos">
+              <MappingFragment StoreEntitySet="Departamentos">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DependenteTipos">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.DependenteTipos">
+              <MappingFragment StoreEntitySet="DependenteTipos">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="DependenteTipoID" ColumnName="DependenteTipoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaAssociado">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaAssociado">
+              <MappingFragment StoreEntitySet="PessoaAssociado">
+                <ScalarProperty Name="Afastado" ColumnName="Afastado" />
+                <ScalarProperty Name="Aposentado" ColumnName="Aposentado" />
+                <ScalarProperty Name="AssociadoDesde" ColumnName="AssociadoDesde" />
+                <ScalarProperty Name="LimiteDeCredito" ColumnName="LimiteDeCredito" />
+                <ScalarProperty Name="RendaMensal" ColumnName="RendaMensal" />
+                <ScalarProperty Name="Profissao" ColumnName="Profissao" />
+                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaContatos">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaContatos">
+              <MappingFragment StoreEntitySet="PessoaContatos">
+                <ScalarProperty Name="Telefone2" ColumnName="Telefone2" />
+                <ScalarProperty Name="Telefone1" ColumnName="Telefone1" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+                <ScalarProperty Name="PessoaContatoID" ColumnName="PessoaContatoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaDependentes">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaDependentes">
+              <MappingFragment StoreEntitySet="PessoaDependentes">
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="AssociadoDesde" ColumnName="AssociadoDesde" />
+                <ScalarProperty Name="DependenteTipoID" ColumnName="DependenteTipoID" />
+                <ScalarProperty Name="DataDeNascimento" ColumnName="DataDeNascimento" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+                <ScalarProperty Name="PessoaDependenteID" ColumnName="PessoaDependenteID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaDocumentos">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaDocumentos">
+              <MappingFragment StoreEntitySet="PessoaDocumentos">
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+                <ScalarProperty Name="PessoaDocumentoID" ColumnName="PessoaDocumentoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaEnderecos">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaEnderecos">
+              <MappingFragment StoreEntitySet="PessoaEnderecos">
+                <ScalarProperty Name="UF" ColumnName="UF" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+                <ScalarProperty Name="PessoaEnderecoID" ColumnName="PessoaEnderecoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaFisica">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaFisica">
+              <MappingFragment StoreEntitySet="PessoaFisica">
+                <ScalarProperty Name="NomeDaMae" ColumnName="NomeDaMae" />
+                <ScalarProperty Name="NomeDoPai" ColumnName="NomeDoPai" />
+                <ScalarProperty Name="Naturalidade" ColumnName="Naturalidade" />
+                <ScalarProperty Name="DataDeNascimento" ColumnName="DataDeNascimento" />
+                <ScalarProperty Name="Sexo" ColumnName="Sexo" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaJuridica">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaJuridica">
+              <MappingFragment StoreEntitySet="PessoaJuridica">
+                <ScalarProperty Name="InscricaoEstadual" ColumnName="InscricaoEstadual" />
+                <ScalarProperty Name="InscricaoMunicipal" ColumnName="InscricaoMunicipal" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pessoas">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.Pessoas">
+              <MappingFragment StoreEntitySet="Pessoas">
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="TipoPessoa" ColumnName="TipoPessoa" />
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoasPessoaTipos">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoasPessoaTipos">
+              <MappingFragment StoreEntitySet="PessoasPessoaTipos">
+                <ScalarProperty Name="PessoaTipoID" ColumnName="PessoaTipoID" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+                <ScalarProperty Name="PessoaPessoaTipoID" ColumnName="PessoaPessoaTipoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaTelefones">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaTelefones">
+              <MappingFragment StoreEntitySet="PessoaTelefones">
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+                <ScalarProperty Name="PessoaTelefoneID" ColumnName="PessoaTelefoneID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaTipos">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaTipos">
+              <MappingFragment StoreEntitySet="PessoaTipos">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="PessoaTipoID" ColumnName="PessoaTipoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

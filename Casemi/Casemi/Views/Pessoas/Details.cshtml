@@ -1,0 +1,82 @@
+﻿@model Casemi.Models.Pessoas
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pessoas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Observacao)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Observacao)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Ativo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ativo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PessoaAssociado.Matricula)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PessoaAssociado.Matricula)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PessoaEnderecos1.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PessoaEnderecos1.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PessoaFisica.CPF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PessoaFisica.CPF)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PessoaJuridica.CNPJ)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PessoaJuridica.CNPJ)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.PessoaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
