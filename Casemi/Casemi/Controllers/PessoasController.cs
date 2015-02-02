@@ -10,6 +10,7 @@ using Casemi.Models;
 
 namespace Casemi.Controllers
 {
+    [Authorize]
     public class PessoasController : Controller
     {
         private CasemiDesenvolvimentoEntities db = new CasemiDesenvolvimentoEntities();
@@ -17,7 +18,7 @@ namespace Casemi.Controllers
         // GET: Pessoas
         public ActionResult Index()
         {
-            var pessoas = db.Pessoas.Include(p => p.PessoaAssociado).Include(p => p.PessoaEnderecos).Include(p => p.PessoaFisica).Include(p => p.PessoaJuridica);
+            var pessoas = db.Pessoas;
             return View(pessoas.ToList());
         }
 

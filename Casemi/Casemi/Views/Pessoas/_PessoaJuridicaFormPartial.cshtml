@@ -7,7 +7,6 @@
 
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.AntiForgeryToken()
         @Html.HiddenFor(model => model.PessoaID)
 
         <div class="form-group">
@@ -63,16 +62,5 @@
 }
 
 @section Scripts {
-    @*@Scripts.Render("~/bundles/jqueryval")*@
-
-<script type="text/javascript">
-    //$(document).ready(function(){
-        //jQuery(function($){
-            
-        //});
-    //});
-</script>
-
-
-
+    @Scripts.Render("~/bundles/jqueryval")
 }

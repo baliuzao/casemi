@@ -18,7 +18,7 @@ namespace Casemi.Models
         public System.Guid PessoaID { get; set; }
         public System.Guid PessoaTipoID { get; set; }
     
-        public virtual Pessoas Pessoas { get; set; }
         public virtual PessoaTipos PessoaTipos { get; set; }
+        public virtual Pessoas Pessoas { get; set; }
     }
 }

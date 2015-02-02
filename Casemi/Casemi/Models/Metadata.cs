@@ -28,18 +28,17 @@ namespace Casemi.Models
         [Required]
         public bool Ativo { get; set; }
 
-
-        [Required]
-        [Display(Name="Tipo da Pessoa")]
-
         public string TipoPessoa { get; set; }
+
 
         public virtual PessoaAssociado PessoaAssociado { get; set; }
         public virtual ICollection<PessoaContatos> PessoaContatos { get; set; }
+        public virtual ICollection<PessoaDependentes> PessoaDependentes { get; set; }
         public virtual ICollection<PessoaDocumentos> PessoaDocumentos { get; set; }
         public virtual ICollection<PessoaEnderecos> PessoaEnderecos { get; set; }
         public virtual PessoaFisica PessoaFisica { get; set; }
         public virtual PessoaJuridica PessoaJuridica { get; set; }
+        public virtual ICollection<PessoasPessoaTipos> PessoasPessoaTipos { get; set; }
         public virtual ICollection<PessoaTelefones> PessoaTelefones { get; set; }
     }
 

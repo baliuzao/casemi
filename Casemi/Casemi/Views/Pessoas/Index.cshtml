@@ -28,12 +28,6 @@
         <th>
             @Html.DisplayNameFor(model => model.PessoaAssociado.Matricula)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PessoaFisica.CPF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PessoaJuridica.CNPJ)
-        </th>
         <th></th>
     </tr>
 
@@ -53,12 +47,6 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PessoaAssociado.Matricula)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PessoaFisica.CPF)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PessoaJuridica.CNPJ)
         </td>
         <td>
             <a href="@Url.Action("Edit", "Pessoas", new { id = item.PessoaID })" class="btn btn-primary">

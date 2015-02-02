@@ -7,19 +7,20 @@
       <Diagram DiagramId="70fe6ec511684b06a162d67da935e85e" Name="Diagram1">
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.Departamentos" Width="1.5" PointX="3.75" PointY="4.5" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.DependenteTipos" Width="1.5" PointX="3.75" PointY="19.5" />
-        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaAssociado" Width="1.5" PointX="6" PointY="10.75" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaContatos" Width="1.5" PointX="3" PointY="33.125" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaDependentes" Width="1.5" PointX="6" PointY="14.875" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaDocumentos" Width="1.5" PointX="3" PointY="10.125" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaEnderecos" Width="1.5" PointX="3" PointY="25.875" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaFisica" Width="1.5" PointX="3" PointY="29.75" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaJuridica" Width="1.5" PointX="3" PointY="16.5" />
-        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.Pessoas" Width="1.5" PointX="0.75" PointY="14.375" />
-        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoasPessoaTipos" Width="1.5" PointX="3" PointY="13.375" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaTelefones" Width="1.5" PointX="3" PointY="7.375" />
-        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaTipos" Width="1.5" PointX="0.75" PointY="11.5" />
-        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaDependentes_DependenteTipos" />
+        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaAssociado" Width="1.5" PointX="6" PointY="10" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos" />
+        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoasPessoaTipos" Width="1.5" PointX="3" PointY="13.5" />
+        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaTipos" Width="1.5" PointX="0.75" PointY="11.75" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_PessoaTipos" />
+        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.Pessoas" Width="1.5" PointX="0.75" PointY="19.625" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaContatos_Pessoas" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaDependentes_Pessoas" />
@@ -29,7 +30,6 @@
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaJuridica_Pessoas" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_Pessoas" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaTelefones_Pessoas" />
-        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_PessoaTipos" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
