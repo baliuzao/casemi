@@ -36,6 +36,7 @@
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_Produtos_ProdutoGrupos" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_Produtos_UnidadesDeMedida" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_Produtos_UnidadesDeMedida1" />
+        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.Servicos" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

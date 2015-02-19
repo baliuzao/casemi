@@ -110,7 +110,7 @@
             <PropertyRef Name="PessoaID" />
           </Key>
           <Property Name="PessoaID" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Nome" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="128" />
           <Property Name="Email" Type="nvarchar" MaxLength="128" />
           <Property Name="Observacao" Type="text" />
           <Property Name="TipoPessoa" Type="nvarchar" MaxLength="50" />
@@ -164,6 +164,13 @@
           <Property Name="EstoqueQuantidadeMinima" Type="float" />
           <Property Name="EstoqueQuantidadeMaxima" Type="float" />
           <Property Name="ProdutoGrupoID" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Servicos">
+          <Key>
+            <PropertyRef Name="ServicoID" />
+          </Key>
+          <Property Name="ServicoID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <EntityType Name="UnidadesDeMedida">
           <Key>
@@ -384,6 +391,7 @@
           <EntitySet Name="PessoaTipos" EntityType="Self.PessoaTipos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProdutoGrupos" EntityType="Self.ProdutoGrupos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Produtos" EntityType="Self.Produtos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicos" EntityType="Self.Servicos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnidadesDeMedida" EntityType="Self.UnidadesDeMedida" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_PessoaAssociado_Departamentos" Association="Self.FK_PessoaAssociado_Departamentos">
             <End Role="Departamentos" EntitySet="Departamentos" />
@@ -527,6 +535,7 @@
             <End Role="UnidadesDeMedida" EntitySet="UnidadesDeMedida" />
             <End Role="Produtos" EntitySet="Produtos" />
           </AssociationSet>
+          <EntitySet Name="Servicos" EntityType="CasemiDesenvolvimentoModel.Servicos" />
         </EntityContainer>
         <EntityType Name="Departamentos">
           <Key>
@@ -644,7 +653,7 @@
             <PropertyRef Name="PessoaID" />
           </Key>
           <Property Name="PessoaID" Type="Guid" Nullable="false" />
-          <Property Name="Nome" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Nome" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Observacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoPessoa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -921,6 +930,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Servicos">
+          <Key>
+            <PropertyRef Name="ServicoID" />
+          </Key>
+          <Property Name="ServicoID" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1107,6 +1123,14 @@
               <MappingFragment StoreEntitySet="UnidadesDeMedida">
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="UnidadeDeMedidaID" ColumnName="UnidadeDeMedidaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servicos">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.Servicos">
+              <MappingFragment StoreEntitySet="Servicos">
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="ServicoID" ColumnName="ServicoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
