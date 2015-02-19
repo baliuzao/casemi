@@ -1,0 +1,96 @@
+﻿@model Casemi.Models.Produtos
+
+@{
+    ViewBag.Title = "Produtos[Del]";
+}
+
+<h2>Excluir</h2>
+
+<h3>Deseja realmente excluir?</h3>
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodigoDeBarras)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodigoDeBarras)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodigoInterno)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodigoInterno)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstoqueLocal)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstoqueLocal)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstoqueQuantidadeAtual)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstoqueQuantidadeAtual)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EstoqueQuantidadeMinima)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstoqueQuantidadeMinima)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EstoqueQuantidadeMaxima)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstoqueQuantidadeMaxima)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecoDeCompra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecoDeCompra)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecoDeVenda)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PrecoDeVenda)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions text-right">
+            <a href="@Url.Action("Index","Produtos")" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i></a>
+            <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>Excluir</button>
+        </div>
+    }
+</div>

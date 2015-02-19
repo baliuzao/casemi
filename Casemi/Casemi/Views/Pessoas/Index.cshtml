@@ -1,54 +1,53 @@
 ﻿@model IEnumerable<Casemi.Models.Pessoas>
 
 @{
-    ViewBag.Title = "Pessoas";
+    ViewBag.Title = "Pessoas[Lista]";
 }
 
-<h2>Pessoas</h2>
+<h2>Pessoas <small>Listagem de Pessoas Cadastradas</small></h2>
 
 <p>
-    <a href="@Url.Action("Create","Pessoas",null)" class="btn btn-success">
-        <i class="glyphicon glyphicon-plus"></i> Adicionar
-    </a>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="@Url.Action("Create","Pessoas",null)" class="btn btn-success">
+                <i class="glyphicon glyphicon-plus"></i> Adicionar
+            </a>
+        </div>
+        <div class="col-md-6">
+            @using (Html.BeginForm("Index", "Pessoas", FormMethod.Get))
+            {
+                <div class="input-group">
+                    <input type="text" class="form-control pull-right" placeholder="Pesquisar..." name="searchString" data-toggle="tooltip" data-placement="top" title="Este campo pesquisa: Código, Cliente, Veículo e Status">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Pesquisar"></i></button>
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Observacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Ativo)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PessoaAssociado.Matricula)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Observacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Ativo)
-        </td>
-        <td>
+<hr />
+<div class="row">
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(model => model.PessoaAssociado.Matricula)</strong></div>
+    <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Nome)</strong></div>    
+    <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Email)</strong></div>
+    <div class="col-md-2 text-right"></div>
+</div>
+<hr />
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-2">
             @Html.DisplayFor(modelItem => item.PessoaAssociado.Matricula)
-        </td>
-        <td>
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayFor(modelItem => item.Nome)
+        </div>
+        <div class="col-md-4">
+            @Html.DisplayFor(modelItem => item.Email)
+        </div>
+        <div class="col-md-2 text-right">
             <a href="@Url.Action("Edit", "Pessoas", new { id = item.PessoaID })" class="btn btn-primary">
                 <i class="glyphicon glyphicon-pencil"></i>
             </a>
@@ -58,8 +57,8 @@
             <a href="@Url.Action("Delete", "Pessoas", new { id = item.PessoaID })" class="btn btn-danger">
                 <i class="glyphicon glyphicon-trash"></i>
             </a>
-        </td>
-    </tr>
+        </div>
+    </div>
+    <hr />
 }
 
-</table>

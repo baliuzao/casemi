@@ -16,10 +16,18 @@ namespace Casemi.Controllers
         private CasemiDesenvolvimentoEntities db = new CasemiDesenvolvimentoEntities();
 
         // GET: Pessoas
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
-            var pessoas = db.Pessoas;
-            return View(pessoas.ToList());
+            var pessoas = db.Pessoas.Include(p => p.PessoasPessoaTipos);
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                pessoas = pessoas.Where(
+                        x => x.Nome.Contains(searchString)
+                );
+            }
+
+            return View(pessoas.OrderBy(x => x.Nome).ToList());
         }
 
         // GET: Pessoas/Details/5
@@ -156,8 +164,6 @@ namespace Casemi.Controllers
 
 
         // PessoaAssociado Get and Post
-        //
-        //
         public ActionResult PessoaAssociadoFormPartial(Guid pessoaID)
         {
             PessoaAssociado pessoaAssociado = db.PessoaAssociado.Find(pessoaID);
@@ -211,8 +217,6 @@ namespace Casemi.Controllers
 
 
         // PessoaFisica Get and Post
-        //
-        //
         public ActionResult PessoaFisicaFormPartial(Guid pessoaID)
         {
             PessoaFisica pessoaFisica = db.PessoaFisica.Find(pessoaID);
@@ -274,8 +278,6 @@ namespace Casemi.Controllers
 
 
         // PessoaJuridica Get and Post
-        //
-        //
         public ActionResult PessoaJuridicaFormPartial(Guid pessoaID)
         {
             PessoaJuridica pessoaJuridica = db.PessoaJuridica.Find(pessoaID);
@@ -359,37 +361,26 @@ namespace Casemi.Controllers
                     db.PessoasPessoaTipos.Add(pessoaPessoaTipo);
                     db.SaveChanges();
 
-                    if (db.PessoaTipos.Find(pessoaTipoID).Nome.ToUpper() == "ASSOCIADO")
-                    {
-                        if (db.PessoaAssociado.Where(x => x.PessoaID == pessoaID).Count() == 0)
-                        {
-                            PessoaAssociado pessoaAssociado = new PessoaAssociado();
-                            pessoaAssociado.PessoaID = pessoaPessoaTipo.PessoaID;
-                            pessoaAssociado.Matricula = (db.PessoasPessoaTipos.Where(x => x.PessoaTipos.Nome.ToUpper() == "ASSOCIADO").Count() + 1).ToString();
-                            pessoaAssociado.AssociadoDesde = DateTime.Now.Date;
+                    //if (db.PessoaTipos.Find(pessoaTipoID).Nome.ToUpper() == "ASSOCIADO")
+                    //{
+                    //    if (db.PessoaAssociado.Where(x => x.PessoaID == pessoaID).Count() == 0)
+                    //    {
+                    //        PessoaAssociado pessoaAssociado = new PessoaAssociado();
+                    //        pessoaAssociado.PessoaID = pessoaPessoaTipo.PessoaID;
+                    //        pessoaAssociado.Matricula = (db.PessoasPessoaTipos.Where(x => x.PessoaTipos.Nome.ToUpper() == "ASSOCIADO").Count() + 1).ToString();
+                    //        pessoaAssociado.AssociadoDesde = DateTime.Now.Date;
 
-                            db.PessoaAssociado.Add(pessoaAssociado);
-                            db.SaveChanges();
-                            ModelState.AddModelError("Success", "Informações atualizadas!");
-                        }
-                        //else
-                        //{
-                        //    db.Entry(pessoaAssociado).State = EntityState.Modified;
-                        //    db.SaveChanges();
-                        //    ModelState.AddModelError("Success", "Informações atualizadas!");
-                        //}
-                    }
+                    //        db.PessoaAssociado.Add(pessoaAssociado);
+                    //        db.SaveChanges();
+                    //        ModelState.AddModelError("Success", "Informações atualizadas!");
+                    //    }
+                    //}
 
                 }
             }
 
-            //var pessoaPessoaTipos = db.PessoasPessoaTipos.Where(x => x.PessoaID == pessoaID);
-            //ViewBag.PessoaTipos = db.PessoaTipos.OrderBy(x => x.Nome).ToList();
-            //ViewBag.PessoaID = pessoaID;
-
             return RedirectToAction("Edit", new { id = pessoaID });
         }
-
 
         public ActionResult PessoaDependentesListaPartial(Guid pessoaID)
         {
@@ -413,10 +404,19 @@ namespace Casemi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PessoaDependentesCreatePartial([Bind(Include = "PessoaDependenteID,PessoaID,Nome,DataDeNascimento,DependenteTipoID,AssociadoDesde,Observacao,Ativo")] PessoaDependentes pessoaDependentes)
+        public ActionResult PessoaDependentesCreatePartial([Bind(Include = "PessoaDependenteID,PessoaID,Matricula,Nome,DataDeNascimento,DependenteTipoID,AssociadoDesde,Observacao,Ativo")] PessoaDependentes pessoaDependentes)
         {
+
+
+
             try
             {
+                //if (string.IsNullOrEmpty(pessoaDependentes.Matricula))
+                //{
+                //    pessoaDependentes.Matricula = db.Pessoas.Where(x => x.PessoaID == pessoaDependentes.PessoaID).FirstOrDefault().PessoaAssociado.Matricula + "-" + (db.Pessoas.Where(x => x.PessoaID == pessoaDependentes.PessoaID).FirstOrDefault().PessoaDependentes.Count() + 1).ToString();
+                //}
+
+
                 if (ModelState.IsValid)
                 {
                     db.PessoaDependentes.Add(pessoaDependentes);
@@ -458,7 +458,7 @@ namespace Casemi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PessoaDependentesEditPartial([Bind(Include = "PessoaDependenteID,PessoaID,Nome,DataDeNascimento,DependenteTipoID,AssociadoDesde,Observacao,Ativo")] PessoaDependentes pessoaDependentes)
+        public ActionResult PessoaDependentesEditPartial([Bind(Include = "PessoaDependenteID,PessoaID,Matricula,Nome,DataDeNascimento,DependenteTipoID,AssociadoDesde,Observacao,Ativo")] PessoaDependentes pessoaDependentes)
         {
             if (ModelState.IsValid)
             {
@@ -500,8 +500,6 @@ namespace Casemi.Controllers
             string url = Url.Action("PessoaDependentesListaPartial", "Pessoas", new { pessoaID = pessoaDependentes.PessoaID });
             return Json(new { success = true, url = url });
         }
-
-
 
         protected override void Dispose(bool disposing)
         {

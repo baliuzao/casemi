@@ -31,5 +31,10 @@ namespace Casemi.Models
     {
     }
 
+    [MetadataType(typeof(ProdutosMetadata))]
+    public partial class Produtos
+    {
+    }
+
 
 }

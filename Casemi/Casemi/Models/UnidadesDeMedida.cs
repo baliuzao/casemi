@@ -12,13 +12,18 @@ namespace Casemi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class PessoasPessoaTipos
+    public partial class UnidadesDeMedida
     {
-        public System.Guid PessoaPessoaTipoID { get; set; }
-        public System.Guid PessoaID { get; set; }
-        public System.Guid PessoaTipoID { get; set; }
+        public UnidadesDeMedida()
+        {
+            this.Produtos = new HashSet<Produtos>();
+            this.Produtos1 = new HashSet<Produtos>();
+        }
     
-        public virtual Pessoas Pessoas { get; set; }
-        public virtual PessoaTipos PessoaTipos { get; set; }
+        public System.Guid UnidadeDeMedidaID { get; set; }
+        public string Nome { get; set; }
+    
+        public virtual ICollection<Produtos> Produtos { get; set; }
+        public virtual ICollection<Produtos> Produtos1 { get; set; }
     }
 }

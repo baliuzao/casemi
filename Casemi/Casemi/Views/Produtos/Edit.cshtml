@@ -1,0 +1,149 @@
+﻿@model Casemi.Models.Produtos
+
+@{
+    ViewBag.Title = "Produtos[Add]";
+}
+
+<h2>Alterar<br /><small>Preencha o formulário para ALTERAR os dados do Produto</small></h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ProdutoID)
+
+
+        <h3><small>Informações Principais</small></h3>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.CodigoInterno, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.CodigoInterno, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CodigoInterno, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.CodigoDeBarras, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.CodigoDeBarras, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CodigoDeBarras, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.ProdutoGrupoID, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownList("ProdutoGrupoID", null, "<Selecione>", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.ProdutoGrupoID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <h3><small>Compra e Venda</small></h3>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.PrecoDeCompra, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.PrecoDeCompra, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrecoDeCompra, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.CompraUnidadeDeMedidaID, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownList("CompraUnidadeDeMedidaID", null, "<Selecione>", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompraUnidadeDeMedidaID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.PrecoDeVenda, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.PrecoDeVenda, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PrecoDeVenda, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.VendaUnidadeDeMedidaID, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownList("VendaUnidadeDeMedidaID", null, "<Selecione>", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.VendaUnidadeDeMedidaID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <br />
+        <h3><small>Estoque</small></h3>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstoqueLocal, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.EstoqueLocal, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EstoqueLocal, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.EstoqueQuantidadeAtual, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.EstoqueQuantidadeAtual, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EstoqueQuantidadeAtual, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.EstoqueQuantidadeMinima, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.EstoqueQuantidadeMinima, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EstoqueQuantidadeMinima, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.EstoqueQuantidadeMaxima, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.EstoqueQuantidadeMaxima, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.EstoqueQuantidadeMaxima, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-12 text-right">
+                <a href="@Url.Action("Index","Produtos")" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i></a>
+                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $('[data-toggle=tooltip]').tooltip();
+    </script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('.autocomplete-with-hidden').autocomplete({
+                minLength: 0,
+                source: function (request, response) {
+                    var url = $(this.element).data('url');
+
+                    $.getJSON(url, { term: request.term }, function (data) {
+                        response(data);
+                    })
+                }
+                , select: function (event, ui) {
+                    $(event.target).next('input[type=hidden]').val(ui.item.id);
+                }
+                , change: function (event, ui) {
+                    if (!ui.item) {
+                        $(event.target).next('input[type=hidden]').val('00000000-0000-0000-0000-000000000000');
+                        //$(event.target).val('').next('input[type=hidden]').val('');
+                    }
+                }
+            });
+        })
+    </script>
+}

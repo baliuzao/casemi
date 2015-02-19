@@ -16,10 +16,11 @@ namespace Casemi.Models
     {
         public System.Guid PessoaDependenteID { get; set; }
         public System.Guid PessoaID { get; set; }
+        public string Matricula { get; set; }
         public string Nome { get; set; }
-        public System.DateTime DataDeNascimento { get; set; }
-        public System.Guid DependenteTipoID { get; set; }
-        public System.DateTime AssociadoDesde { get; set; }
+        public Nullable<System.DateTime> DataDeNascimento { get; set; }
+        public Nullable<System.Guid> DependenteTipoID { get; set; }
+        public Nullable<System.DateTime> AssociadoDesde { get; set; }
         public string Observacao { get; set; }
         public bool Ativo { get; set; }
     

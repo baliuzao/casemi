@@ -27,16 +27,19 @@ namespace Casemi.Models
     
         public virtual DbSet<Departamentos> Departamentos { get; set; }
         public virtual DbSet<DependenteTipos> DependenteTipos { get; set; }
+        public virtual DbSet<PessoaAssociado> PessoaAssociado { get; set; }
         public virtual DbSet<PessoaContatos> PessoaContatos { get; set; }
         public virtual DbSet<PessoaDependentes> PessoaDependentes { get; set; }
         public virtual DbSet<PessoaDocumentos> PessoaDocumentos { get; set; }
         public virtual DbSet<PessoaEnderecos> PessoaEnderecos { get; set; }
         public virtual DbSet<PessoaFisica> PessoaFisica { get; set; }
         public virtual DbSet<PessoaJuridica> PessoaJuridica { get; set; }
-        public virtual DbSet<PessoaTelefones> PessoaTelefones { get; set; }
-        public virtual DbSet<PessoaAssociado> PessoaAssociado { get; set; }
-        public virtual DbSet<PessoasPessoaTipos> PessoasPessoaTipos { get; set; }
-        public virtual DbSet<PessoaTipos> PessoaTipos { get; set; }
         public virtual DbSet<Pessoas> Pessoas { get; set; }
+        public virtual DbSet<PessoasPessoaTipos> PessoasPessoaTipos { get; set; }
+        public virtual DbSet<PessoaTelefones> PessoaTelefones { get; set; }
+        public virtual DbSet<PessoaTipos> PessoaTipos { get; set; }
+        public virtual DbSet<ProdutoGrupos> ProdutoGrupos { get; set; }
+        public virtual DbSet<Produtos> Produtos { get; set; }
+        public virtual DbSet<UnidadesDeMedida> UnidadesDeMedida { get; set; }
     }
 }

@@ -16,6 +16,7 @@ namespace Casemi.Models
     {
         public System.Guid PessoaID { get; set; }
         public string CPF { get; set; }
+        public string RG { get; set; }
         public string Sexo { get; set; }
         public Nullable<System.DateTime> DataDeNascimento { get; set; }
         public string Naturalidade { get; set; }

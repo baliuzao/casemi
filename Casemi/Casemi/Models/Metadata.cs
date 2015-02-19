@@ -135,7 +135,11 @@ namespace Casemi.Models
         
         [HiddenInput(DisplayValue = false)]
         public System.Guid PessoaID { get; set; }
-
+        
+        [Required]
+        [Display(Name = "Matrícula")]
+        [DataType(DataType.Text)]
+        public string Matricula { get; set; }
 
         [Display(Name = "Nome")]
         [Required]
@@ -167,4 +171,68 @@ namespace Casemi.Models
         public virtual Pessoas Pessoas { get; set; }
     }
 
+
+    public class ProdutosMetadata
+    {
+        [Required]
+        [HiddenInput]
+        public System.Guid ProdutoID { get; set; }
+
+        [Required]
+        [Display(Name="Cód. Barras")]
+        [DataType(DataType.Text)]
+        public string CodigoDeBarras { get; set; }
+
+        [Required]
+        [Display(Name = "Cód. Interno")]
+        [DataType(DataType.Text)]
+        public string CodigoInterno { get; set; }
+
+        [Required]
+        [Display(Name = "Nome")]
+        [DataType(DataType.Text)]
+        public string Nome { get; set; }
+
+        [Required]
+        [Display(Name = "Un. Compra")]
+        public Nullable<System.Guid> CompraUnidadeDeMedidaID { get; set; }
+
+        [Required]
+        [Display(Name = "un. Venda")]
+        public Nullable<System.Guid> VendaUnidadeDeMedidaID { get; set; }
+
+        [Required]
+        [Display(Name = "Preço de Compra")]
+        [DataType(DataType.Currency)]
+        public Nullable<decimal> PrecoDeCompra { get; set; }
+
+        [Required]
+        [Display(Name = "Preço de Venda")]
+        [DataType(DataType.Currency)]
+        public Nullable<decimal> PrecoDeVenda { get; set; }
+
+        [Display(Name = "Estocado em")]
+        [DataType(DataType.Text)]
+        public string EstoqueLocal { get; set; }
+
+        [Required]
+        [Display(Name = "Em Mãos")]
+        public Nullable<double> EstoqueQuantidadeAtual { get; set; }
+
+        [Required]
+        [Display(Name = "Qtd. Mínima")]
+        public Nullable<double> EstoqueQuantidadeMinima { get; set; }
+
+        [Required]
+        [Display(Name = "Qtd. Máxima")]
+        public Nullable<double> EstoqueQuantidadeMaxima { get; set; }
+
+        [Required]
+        [Display(Name = "Grupo")]
+        public Nullable<System.Guid> ProdutoGrupoID { get; set; }
+
+        public virtual ProdutoGrupos ProdutoGrupos { get; set; }
+        public virtual UnidadesDeMedida UnidadesDeMedida { get; set; }
+        public virtual UnidadesDeMedida UnidadesDeMedida1 { get; set; }
+    }
 }
