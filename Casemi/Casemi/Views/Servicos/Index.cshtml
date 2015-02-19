@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Casemi.Models.Servicos>
+
+@{
+    ViewBag.Title = "Serviços[Lista]";
+}
+
+<h2>Produtos<br /><small>Listagem de Serviços</small></h2>
+
+<p>
+    <div class="row">
+        <div class="col-md-6">
+            <a href="@Url.Action("Create","Servicos",null)" class="btn btn-success">
+                <i class="glyphicon glyphicon-plus"></i> Adicionar
+            </a>
+        </div>
+        <div class="col-md-6">
+            @using (Html.BeginForm("Index", "Servicos", FormMethod.Get))
+            {
+                <div class="input-group">
+                    <input type="text" class="form-control pull-right" placeholder="Pesquisar..." name="searchString" data-toggle="tooltip" data-placement="top" title="Este campo pesquisa: Nome">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Pesquisar"></i></button>
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+</p>
+
+<hr />
+<div class="row">
+    <div class="col-md-10"><strong>@Html.DisplayNameFor(model => model.Nome)</strong></div>
+    <div class="col-md-2 text-right"></div>
+</div>
+<hr />
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-10">
+            @Html.DisplayFor(modelItem => item.Nome)
+        </div>
+        <div class="col-md-2 text-right">
+            <a href="@Url.Action("Edit", "Servicos", new { id = item.ServicoID })" class="btn btn-primary">
+                <i class="glyphicon glyphicon-pencil"></i>
+            </a>
+            <a href="@Url.Action("Details", "Servicos", new { id = item.ServicoID })" class="btn btn-info">
+                <i class="glyphicon glyphicon-search"></i>
+            </a>
+            <a href="@Url.Action("Delete", "Servicos", new { id = item.ServicoID })" class="btn btn-danger">
+                <i class="glyphicon glyphicon-trash"></i>
+            </a>
+        </div>
+    </div>
+    <hr />
+}
+

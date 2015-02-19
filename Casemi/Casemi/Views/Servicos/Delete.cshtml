@@ -1,0 +1,33 @@
+﻿@model Casemi.Models.Servicos
+
+@{
+    ViewBag.Title = "Serviços[Del]";
+}
+
+<h2>Excluir</h2>
+
+<h3>Deseja realmente excluir?</h3>
+<div>
+    <h4>Serviço</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.ServicoID)
+
+        <div class="form-actions text-right">
+            <a href="@Url.Action("Index","Servicos")" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i></a>
+            <button type="submit" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i>Excluir</button>
+        </div>
+    }
+</div>

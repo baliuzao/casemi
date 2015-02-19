@@ -366,10 +366,13 @@
     <Content Include="Views\Produtos\Create.cshtml" />
     <Content Include="Views\Produtos\Edit.cshtml" />
     <Content Include="Views\Produtos\Delete.cshtml" />
+    <Content Include="Views\Servicos\Create.cshtml" />
+    <Content Include="Views\Servicos\Delete.cshtml" />
+    <Content Include="Views\Servicos\Edit.cshtml" />
+    <Content Include="Views\Servicos\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Servicos\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

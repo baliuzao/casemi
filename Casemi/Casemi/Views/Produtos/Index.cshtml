@@ -1,19 +1,19 @@
 ﻿@model IEnumerable<Casemi.Models.Produtos>
 
 @{
-    ViewBag.Title = "Produtos[Lista]";
+    ViewBag.Title = "Serviços[Lista]";
 }
 
 <h2>Produtos<br /><small>Listagem de Produtos</small></h2>
 
 <p>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 form-group">
             <a href="@Url.Action("Create","Produtos",null)" class="btn btn-success">
                 <i class="glyphicon glyphicon-plus"></i> Adicionar
             </a>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 form-group">
             @using (Html.BeginForm("Index", "Produtos", FormMethod.Get))
             {
                 <div class="input-group">
