@@ -1,0 +1,212 @@
+﻿@model OrdemServicoWeb.Models.OrdensServico
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<p>
+    <h3 class="text-right"><small>Ordem de Serviço: </small>@Html.DisplayFor(model => model.Codigo)</h3>
+</p>
+
+<div class="form-group">
+
+    <div class="panel panel-default">
+        <div class="panel-heading"><h4>Informações Ordem de Serviço</h4></div>
+
+        <table class="table">
+            <tr>
+                <td>
+                    <strong>
+                        @Html.DisplayNameFor(model => model.AberturaDataHora)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.AberturaDataHora)
+                </td>
+                <td></td>
+                <td>
+                    <strong>
+                        @Html.DisplayNameFor(model => model.FechamentoDataHora)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.FechamentoDataHora)
+                </td>
+
+                <td></td>
+                <td>
+                    <strong>
+                        @Html.DisplayNameFor(model => model.OrdemServicoStatusID)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.OrdemServicoStatus.Nome)
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <strong>
+                        @Html.DisplayNameFor(model => model.Descricao)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.Descricao)
+                </td>
+                <td colspan="2">
+                    <strong>
+                        @Html.DisplayNameFor(model => model.Observacao)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.Descricao)
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <strong>
+                        @Html.DisplayNameFor(model => model.PessoaID)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.Pessoas.Nome)
+                </td>
+                <td colspan="2">
+                    <strong>Endereços</strong>
+                    <br />
+                    @foreach (var item in Model.Pessoas.PessoaEnderecos)
+                    {
+                    <strong>@Html.DisplayFor(modelItem => item.Nome): </strong>
+                    @Html.DisplayFor(modelItem => item.Logradouro)
+                    @Html.Raw(", ")
+                    @Html.DisplayFor(modelItem => item.Numero)
+                    @Html.Raw(", ")
+                    @Html.DisplayFor(modelItem => item.Complemento)
+                    @Html.Raw(", ")
+                    @Html.DisplayFor(modelItem => item.Bairro)
+                    @Html.Raw(", ")
+                    @Html.DisplayFor(modelItem => item.Cidade)
+                    @Html.Raw("/ ")
+                    @Html.DisplayFor(modelItem => item.UF)
+                    @Html.Raw("Cep:")
+                    @Html.DisplayFor(modelItem => item.Cep)
+                    <br />
+                    }
+                </td>
+
+                <td>
+                    <strong>Telefones</strong>
+                    <br />
+                    @foreach (var item in Model.Pessoas.PessoaTelefones)
+                    {
+                    <strong>@Html.DisplayFor(modelItem => item.Nome): </strong>@Html.DisplayFor(modelItem => item.Valor)<br />
+                    }
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <strong>
+                        @Html.DisplayNameFor(model => model.Placa)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.Placa)
+                </td>
+                <td></td>
+                <td>
+                    <strong>
+                        @Html.DisplayNameFor(model => model.Marca) / @Html.DisplayNameFor(model => model.Modelo)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.Marca) @Html.DisplayFor(model => model.Modelo)  - @Html.DisplayFor(model => model.Ano)
+                </td>
+
+                <td></td>
+
+                <td>
+                    <strong>
+                        @Html.DisplayNameFor(model => model.KM)
+                    </strong>
+                    <br />
+                    @Html.DisplayFor(model => model.KM)
+                </td>
+            </tr>
+        </table>
+
+
+
+
+    </div>
+</div>
+
+<div class="form-group">
+    <div class="panel panel-default">
+
+        <table class="table">
+            <tr class="active">
+                <th>Produtos & Serviços</th>
+                <th class="text-right">Quantidade</th>
+                <th class="text-right">Valor Unitário</th>
+                <th class="text-right">Valor Total</th>
+            </tr>
+
+
+            @if (Model.OrdemServicoProdutos.Count > 0)
+            {
+                foreach (var item in Model.OrdemServicoProdutos)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Produtos.Nome)</td>
+                        <td class="text-right">@Html.DisplayFor(modelItem => item.Quantidade)</td>
+                        <td class="text-right">@string.Format("{0:c}", item.ValorUnitario)</td>
+                        <td class="text-right">@string.Format("{0:c}", item.ValorTotal)</td>
+                    </tr>
+                }
+                <tr>
+                    <th class="text-right" colspan="3">Total de Produtos</th>
+
+                    <th class="text-right">
+                        @string.Format("{0:c}", Model.OrdemServicoProdutos.Sum(model => model.ValorTotal))
+                    </th>
+                </tr>
+            }
+
+
+            @if (Model.OrdemServicoServicos.Count > 0)
+            {
+                foreach (var item in Model.OrdemServicoServicos)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.Servicos.Nome)</td>
+                        <td class="text-right">@Html.DisplayFor(modelItem => item.Quantidade)</td>
+                        <td class="text-right">@string.Format("{0:c}", item.ValorUnitario)</td>
+                        <td class="text-right">@string.Format("{0:c}", item.ValorTotal)</td>
+                    </tr>
+                }
+                <tr>
+                    <th class="text-right" colspan="3">Total de Serviços</th>
+
+                    <th class="text-right">
+                        @string.Format("{0:c}", Model.OrdemServicoServicos.Sum(model => model.ValorTotal))
+                    </th>
+                </tr>
+            }
+            
+
+            <tr>
+                <th class="text-right" colspan="3">Total de Produtos / Serviços</th>
+
+                <th class="text-right">
+                    @string.Format("{0:c}", Model.OrdemServicoProdutos.Sum(model => model.ValorTotal) + Model.OrdemServicoServicos.Sum(model => model.ValorTotal))
+                </th>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+
+<div class="text-right">
+    <a href="@Url.Action("Index", "OrdemServico" )" data-toggle="tooltip" data-placement="top" title="Voltar" class="btn btn-default">
+        <span class="glyphicon glyphicon-arrow-left"></span>
+    </a>
+    <a href="@Url.Action("DetailsPDF", new { id = Model.OrdemServicoID })" target="_blank" class="btn btn-primary"><span class="glyphicon glyphicon-print"></span> Imprimir</a>
+</div>
+
+@{
+    ViewBag.Title = "Details";
+}

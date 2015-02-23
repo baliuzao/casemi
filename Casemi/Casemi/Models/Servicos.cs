@@ -14,7 +14,14 @@ namespace Casemi.Models
     
     public partial class Servicos
     {
+        public Servicos()
+        {
+            this.OrdensServico = new HashSet<OrdensServico>();
+        }
+    
         public System.Guid ServicoID { get; set; }
         public string Nome { get; set; }
+    
+        public virtual ICollection<OrdensServico> OrdensServico { get; set; }
     }
 }

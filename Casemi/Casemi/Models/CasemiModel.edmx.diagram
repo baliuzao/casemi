@@ -37,6 +37,10 @@
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_Produtos_UnidadesDeMedida" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_Produtos_UnidadesDeMedida1" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.Servicos" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.OrdensServico" Width="1.5" PointX="9" PointY="7.875" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

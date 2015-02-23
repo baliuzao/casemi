@@ -1,0 +1,164 @@
+﻿@model OrdemServicoWeb.Models.OrdensServicoCreate
+
+@{
+    ViewBag.Title = "OS[Criar]";
+}
+
+
+<h3>Ordens de Serviço<br /><small>Criar uma nova Ordem de Serviço</small></h3>
+<hr />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.EmpresaID)
+        @Html.HiddenFor(model => model.OrdemServicoID)
+        @Html.HiddenFor(model => model.AberturaDataHora)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.OrdemServicoStatusID, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.DropDownList("OrdemServicoStatusID", null, "<Selecione>", htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.OrdemServicoStatusID, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.PrevisaoDeEntregaData, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.PrevisaoDeEntregaData, new { htmlAttributes = new { @class = "form-control", placeholder = "dd/mm/yyyy" } })
+                @Html.ValidationMessageFor(model => model.PrevisaoDeEntregaData, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.PrevisaoDeEntregaHora, "Hora", htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.PrevisaoDeEntregaHora, new { htmlAttributes = new { @class = "form-control", placeholder = "hh:mm" } })
+                @Html.ValidationMessageFor(model => model.PrevisaoDeEntregaHora, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PessoaID, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(Model => Model.ClienteNome, new { @class = "autocomplete-with-hidden form-control", data_url = Url.Action("AutoCompletePessoa", "Pessoas") })
+                @Html.HiddenFor(Model => Model.PessoaID)
+                @Html.ValidationMessageFor(model => model.ClienteNome, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.Descricao, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Descricao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Descricao, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <br />
+        <h4>Veículo</h4>
+        <hr />
+        <div class="form-group">
+            @Html.LabelFor(model => model.Placa, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Placa, new { htmlAttributes = new { @class = "form-control", placeholder = "AAA-0000" } })
+                @Html.ValidationMessageFor(model => model.Placa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.TextBoxFor(Model => Model.Marca, new { @class = "autocomplete-with-hidden form-control", data_url = Url.Action("AutoCompleteFipeMarca", "OrdemServico") })
+                @Html.Hidden("FipeMarca")
+                @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.Modelo, htmlAttributes: new { @class = "control-label col-md-1" })
+            @*<div class="col-md-3">
+                @Html.EditorFor(model => model.Modelo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
+            </div>*@
+            <div class="col-md-3">
+                @Html.TextBoxFor(Model => Model.Modelo, new { @class = "autocomplete-with-hidden form-control", data_url = Url.Action("AutoCompleteFipeModelo", "OrdemServico") })
+                @Html.Hidden("FipeModelo")
+                @Html.ValidationMessageFor(model => model.Modelo, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.Ano, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Ano, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ano, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.KM, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.KM, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.KM, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.Cor, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Cor, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Cor, "", new { @class = "text-danger" })
+            </div>
+            @Html.LabelFor(model => model.Combustivel, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.Combustivel, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Combustivel, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-12 text-right">
+                @Html.ActionLink("Voltar", "Index", null, new { @class = "btn btn-default" })
+                <input type="submit" value="Adcionar" class="btn btn-primary" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $("#Placa").mask("***-9999");
+
+        //$("#PrevisaoDeEntrega").mask("9999/99/99 99:99");
+    </script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('.autocomplete-with-hidden').autocomplete({
+                minLength: 0,
+                source: function (request, response) {
+                    var url = $(this.element).data('url');
+
+                    $.getJSON(url, { term: request.term }, function (data) {
+                        response(data);
+                    })
+                }
+                , select: function (event, ui) {
+                    $(event.target).next('input[type=hidden]').val(ui.item.id);
+                }
+                , change: function (event, ui) {
+                    if (!ui.item) {
+                        $(event.target).next('input[type=hidden]').val('00000000-0000-0000-0000-000000000000');
+                        //$(event.target).val('').next('input[type=hidden]').val('');
+                    }
+                }
+            });
+        })
+
+
+    </script>
+}

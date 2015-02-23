@@ -1,0 +1,53 @@
+﻿@model IEnumerable<OrdemServicoWeb.Models.OrdemServicoProdutos>
+
+<hr />
+<div class="row">
+    <div class="col-md-4 text-left"><strong>@*@Html.DisplayNameFor(model => model.ProdutoID)*@Produtos</strong></div>
+    <div class="col-md-2 text-right"><strong>@Html.DisplayNameFor(model => model.Quantidade)</strong></div>
+    <div class="col-md-2 text-right"><strong>@Html.DisplayNameFor(model => model.ValorUnitario)</strong></div>
+    <div class="col-md-2 text-right"><strong>@Html.DisplayNameFor(model => model.ValorTotal)</strong></div>
+    <div class="col-md-2 text-right">
+        <a href="@Url.Action("OrdemServicoProdutosCreatePartial", "OrdemServico", new { ordemServicoID = ViewBag.OrdemServicoID })" data-modal="" data-id="replacetargetProduto" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Adicionar">
+            <span class='glyphicon glyphicon-plus'></span>
+        </a>
+    </div>
+</div>
+<hr />
+
+@foreach (var item in Model)
+{
+    <div class="row">
+        <div class="col-md-4 text-left">
+            @Html.DisplayFor(modelItem => item.Produtos.CodigoBarras) -
+            @Html.DisplayFor(modelItem => item.Produtos.Nome)
+            @Html.DisplayFor(modelItem => item.Produtos.Marca)
+            @Html.DisplayFor(modelItem => item.Produtos.Modelo)
+        </div>
+        <div class="col-md-2 text-right">@string.Format("{0:f}", item.Quantidade)</div>
+        <div class="col-md-2 text-right">@string.Format("{0:c}", item.ValorUnitario)</div>
+        <div class="col-md-2 text-right">@string.Format("{0:c}", item.ValorTotal)</div>
+        <div class="col-md-2 text-right">
+            @*usando data-id para passagem do nome do painel a atualizar*@
+            <a href="@Url.Action("OrdemServicoProdutosEditPartial", "OrdemServico", new { id = item.OrdemServicoProdutoID })" data-modal="" data-id="replacetargetProduto" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Alterar">
+                <span class='glyphicon glyphicon-pencil'></span>
+            </a>
+
+            @*usando data-id para passagem do nome do painel a atualizar*@
+            <a href="@Url.Action("OrdemServicoProdutosDeletePartial", "OrdemServico", new { id = item.OrdemServicoProdutoID })" data-modal="" data-id="replacetargetProduto" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Excluir">
+                <span class='glyphicon glyphicon-trash'></span>
+            </a>
+        </div>
+    </div>
+    <hr />
+}
+
+<div class="row">
+    <div class="col-md-4 text-left"><strong>Total de Produtos</strong></div>
+    <div class="col-md-2 text-right"><strong>@string.Format("{0:f}", Model.Sum(model => model.Quantidade))</strong></div>
+    <div class="col-md-2 text-right"><strong></strong></div>
+    <div class="col-md-2 text-right"><strong>@string.Format("{0:c}", Model.Sum(model => model.ValorTotal))</strong></div>
+    <div class="col-md-2 text-right"><strong></strong></div>
+</div>
+<hr />
+
+@Scripts.Render("~/bundles/modalform")

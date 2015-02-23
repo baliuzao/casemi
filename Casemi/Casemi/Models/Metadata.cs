@@ -95,6 +95,7 @@ namespace Casemi.Models
         public System.Guid PessoaID { get; set; }
 
         [Display(Name="Matrícula")]
+        [Required]
         public string Matricula { get; set; }
         
         [Display(Name = "Departamento")]

@@ -22,6 +22,8 @@ namespace Casemi.Models
             this.PessoaEnderecos = new HashSet<PessoaEnderecos>();
             this.PessoasPessoaTipos = new HashSet<PessoasPessoaTipos>();
             this.PessoaTelefones = new HashSet<PessoaTelefones>();
+            this.OrdensServico = new HashSet<OrdensServico>();
+            this.OrdensServico1 = new HashSet<OrdensServico>();
         }
     
         public System.Guid PessoaID { get; set; }
@@ -40,5 +42,7 @@ namespace Casemi.Models
         public virtual PessoaJuridica PessoaJuridica { get; set; }
         public virtual ICollection<PessoasPessoaTipos> PessoasPessoaTipos { get; set; }
         public virtual ICollection<PessoaTelefones> PessoaTelefones { get; set; }
+        public virtual ICollection<OrdensServico> OrdensServico { get; set; }
+        public virtual ICollection<OrdensServico> OrdensServico1 { get; set; }
     }
 }

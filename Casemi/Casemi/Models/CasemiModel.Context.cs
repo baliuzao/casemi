@@ -42,5 +42,6 @@ namespace Casemi.Models
         public virtual DbSet<Produtos> Produtos { get; set; }
         public virtual DbSet<UnidadesDeMedida> UnidadesDeMedida { get; set; }
         public virtual DbSet<Servicos> Servicos { get; set; }
+        public virtual DbSet<OrdensServico> OrdensServico { get; set; }
     }
 }

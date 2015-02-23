@@ -49,7 +49,6 @@ namespace Casemi.Controllers
         public ActionResult Create()
         {
             Pessoas pessoas = new Pessoas();
-            pessoas.Ativo = true;
 
             IEnumerable<SelectListItem> TipoPessoa = new List<SelectListItem>(){
                 new SelectListItem() {Text="FISICA", Value="FISICA", Selected = string.Equals("FISICA", pessoas.TipoPessoa)},
@@ -71,9 +70,10 @@ namespace Casemi.Controllers
             if (ModelState.IsValid)
             {
                 pessoas.PessoaID = Guid.NewGuid();
+                pessoas.Ativo = true;
                 db.Pessoas.Add(pessoas);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Edit", new { id = pessoas.PessoaID });
             }
 
             IEnumerable<SelectListItem> TipoPessoa = new List<SelectListItem>(){

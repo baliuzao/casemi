@@ -1,90 +1,52 @@
 ﻿@model IEnumerable<Casemi.Models.PessoaDependentes>
 
-<table class="table">
-    <tr>
-        <th class="col-md-4">
-            @Html.DisplayNameFor(m => m.Nome)
-        </th>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(m => m.DataDeNascimento)
-        </th>
-        <th class="col-md-2">
-            @Html.DisplayNameFor(m => m.DependenteTipoID)
-        </th>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(m => m.AssociadoDesde)
-        </th>
-        <th class="col-md-2">
-            @Html.DisplayNameFor(m => m.Observacao)
-        </th>
-        <th class="col-md-1">
-            @Html.DisplayNameFor(m => m.Ativo)
-        </th>
-        <th class="col-md-1">
+
+<hr />
+<div class="row">
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(m => m.Matricula)</strong></div>
+    <div class="col-md-3"><strong>@Html.DisplayNameFor(m => m.Nome)</strong></div>
+    <div class="col-md-1"><strong>@Html.DisplayNameFor(m => m.DataDeNascimento)</strong></div>
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(m => m.DependenteTipoID)</strong></div>
+    <div class="col-md-1"><strong>@Html.DisplayNameFor(m => m.AssociadoDesde)</strong></div>
+    <div class="col-md-1"><strong>@Html.DisplayNameFor(m => m.Ativo)</strong></div>
+    <div class="col-md-2 text-right">
+        <a href="@Url.Action("PessoaDependentesCreatePartial", "Pessoas", new { pessoaID = ViewBag.PessoaID })" data-modal="" data-id="replacetargetPessoaDependentes" class="btn btn-success">
+            <span class='glyphicon glyphicon-plus'></span> Adicionar
+        </a>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <hr />
+    <div class="row">
+        <div class="col-md-2"><small>@Html.DisplayFor(modelItem => item.Matricula)</small></div>
+        <div class="col-md-3"><small>@Html.DisplayFor(modelItem => item.Nome)</small></div>
+        <div class="col-md-1"><small>@Html.DisplayFor(modelItem => item.DataDeNascimento)</small></div>
+        <div class="col-md-2"><small>@Html.DisplayFor(modelItem => item.DependenteTipos.Nome)</small></div>
+        <div class="col-md-1"><small>@Html.DisplayFor(modelItem => item.AssociadoDesde)</small></div>
+        <div class="col-md-1"><small>@Html.DisplayFor(modelItem => item.Ativo)</small></div>
+        <div class="col-md-2 text-right">
             @*usando data-id para passagem do nome do painel a atualizar*@
-            <a href="@Url.Action("PessoaDependentesCreatePartial", "Pessoas", new { pessoaID = ViewBag.PessoaID })" data-modal="" data-id="replacetargetPessoaDependentes" class="btn btn-success">
-                <span class='glyphicon glyphicon-plus'></span> Adicionar
+            <a href="@Url.Action("PessoaDependentesEditPartial", "Pessoas", new { id = item.PessoaDependenteID })" data-modal="" data-id="replacetargetPessoaDependentes" class="btn btn-primary">
+                <span class='glyphicon glyphicon-pencil'></span>
             </a>
-        </th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DataDeNascimento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DependenteTipos.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.AssociadoDesde)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Observacao)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Ativo)
-            </td>
-            <td>
-                @*usando data-id para passagem do nome do painel a atualizar*@
-                <a href="@Url.Action("PessoaDependentesEditPartial", "Pessoas", new { id = item.PessoaDependenteID })" data-modal="" data-id="replacetargetPessoaDependentes" class="btn btn-primary">
-                    <span class='glyphicon glyphicon-pencil'></span>
-                </a>
-
-                @*usando data-id para passagem do nome do painel a atualizar*@
-                <a href="@Url.Action("PessoaDependentesDeletePartial", "Pessoas", new { id = item.PessoaDependenteID })" data-modal="" data-id="replacetargetPessoaDependentes" class="btn btn-danger">
-                    <span class='glyphicon glyphicon-trash'></span>
-                </a>
-            </td>
-        </tr>
-    }
-
-
-    <tr>
-        <th>
-            @{
-                Model.Count().ToString();
-
-            }
-        </th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
-
-</table>
-
-
-@section Scripts {
-    @Scripts.Render("~/bundles/modalform")
+            @*usando data-id para passagem do nome do painel a atualizar*@
+            <a href="@Url.Action("PessoaDependentesDeletePartial", "Pessoas", new { id = item.PessoaDependenteID })" data-modal="" data-id="replacetargetPessoaDependentes" class="btn btn-danger">
+                <span class='glyphicon glyphicon-trash'></span>
+            </a>
+        </div>
+    </div>
 }
 
 
+<div class="row">
+    <div class="col-md-12">
+        @{ Model.Count().ToString(); }
+    </div>
+</div>
 
+
+
+@Scripts.Render("~/bundles/modalform")
