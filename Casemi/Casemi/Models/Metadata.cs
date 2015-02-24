@@ -172,7 +172,6 @@ namespace Casemi.Models
         public virtual Pessoas Pessoas { get; set; }
     }
 
-
     public class ProdutosMetadata
     {
         [Required]
@@ -235,5 +234,48 @@ namespace Casemi.Models
         public virtual ProdutoGrupos ProdutoGrupos { get; set; }
         public virtual UnidadesDeMedida UnidadesDeMedida { get; set; }
         public virtual UnidadesDeMedida UnidadesDeMedida1 { get; set; }
+    }
+
+    public class OrdensServicoMetadata
+    {
+        [Required]
+        public System.Guid OrdemServicoID { get; set; }
+        [Required]
+        [Display(Name="Código")]
+        [DataType(DataType.Text)]
+        public string Codigo { get; set; }
+        [Required]
+        [Display(Name = "Aberta em")]
+        [DataType(DataType.DateTime)]
+        public Nullable<System.DateTime> AberturaDataHora { get; set; }
+        [Required]
+        [Display(Name = "Aberta por")]
+        public Nullable<System.Guid> AberturaUsuarioID { get; set; }
+        [Display(Name = "Fechada em")]
+        [DataType(DataType.DateTime)]
+        public Nullable<System.DateTime> FechamentoDataHora { get; set; }
+        [Display(Name = "Fechada por")]
+        public Nullable<System.Guid> FechamentoUsuarioID { get; set; }
+        [Required]
+        [Display(Name = "Fornecedor")]
+        public Nullable<System.Guid> FornecedorID { get; set; }
+        [Required]
+        [Display(Name = "Associado")]
+        public Nullable<System.Guid> AssociadoID { get; set; }
+        [Required]
+        [Display(Name = "Serviço")]
+        public Nullable<System.Guid> ServicoID { get; set; }
+        [Required]
+        [Display(Name = "Valor")]
+        [DataType(DataType.Currency)]
+        public Nullable<decimal> Valor { get; set; }
+        [DataType(DataType.MultilineText)]
+        public string Observacao { get; set; }
+        [Required]
+        public Nullable<bool> Encerrada { get; set; }
+
+        public virtual Pessoas Pessoas { get; set; }
+        public virtual Pessoas Pessoas1 { get; set; }
+        public virtual Servicos Servicos { get; set; }
     }
 }

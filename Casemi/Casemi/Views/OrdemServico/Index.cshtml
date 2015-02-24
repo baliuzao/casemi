@@ -42,10 +42,13 @@
     <div class="col-md-2">
         <strong>@Html.DisplayNameFor(model => model.AssociadoID)</strong>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
         <strong>@Html.DisplayNameFor(model => model.FornecedorID)</strong>
     </div>
     <div class="col-md-2">
+        <strong>@Html.DisplayNameFor(model => model.ServicoID)</strong>
+    </div>
+    <div class="col-md-1">
         <strong>@Html.DisplayNameFor(model => model.Valor)</strong>
     </div>
     <div class="col-md-2">
@@ -63,16 +66,26 @@
             <small>@Html.DisplayFor(modelItem => item.Codigo)</small>
         </div>
         <div class="col-md-2">
-            <small>@Html.DisplayFor(modelItem => item.Pessoas.Nome)</small>
-        </div>
-        <div class="col-md-3">
             <small>@Html.DisplayFor(modelItem => item.Pessoas1.Nome)</small>
         </div>
-        <div class="col-md-2 text-nowrap">
+        <div class="col-md-2">
+            <small>@Html.DisplayFor(modelItem => item.Pessoas.Nome)</small>
+        </div>
+        <div class="col-md-2">
+            <small>@Html.DisplayFor(modelItem => item.Servicos.Nome)</small>
+        </div>
+        <div class="col-md-1 text-nowrap">
             <small>@Html.DisplayFor(modelItem => item.Valor)</small>
         </div>
         <div class="col-md-2">
-            <small>@Html.DisplayFor(modelItem => item.Encerrada)</small>
+            @if (item.Encerrada == true)
+            {
+                <small>SIM</small>
+            }
+            else
+            {
+                <small>NÃO</small>
+            }
         </div>
 
         <div class="col-md-2 text-right">

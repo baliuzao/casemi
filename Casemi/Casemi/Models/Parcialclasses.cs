@@ -36,5 +36,10 @@ namespace Casemi.Models
     {
     }
 
+    [MetadataType(typeof(OrdensServicoMetadata))]
+    public partial class OrdensServico
+    {
+    }
+
 
 }
