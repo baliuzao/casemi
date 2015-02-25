@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Casemi.Models.PessoaContatos>
+
+<h4>Contatos</h4>
+<hr />
+<div class="row form-group">
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Nome)</strong></div>
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Departamento)</strong></div>
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Email)</strong></div>
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Telefone1)</strong></div>
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Telefone2)</strong></div>
+    <div class="col-md-2 text-right">
+        <a href="@Url.Action("PessoaContatosCreatePartial", "Pessoas", new { PessoaID = ViewBag.PessoaID })" data-modal="" data-id="replacetargetContato" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Adicionar">
+            <span class='glyphicon glyphicon-plus'></span>
+        </a>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row form-group">
+        <div class="col-md-2 text-left">
+            <small>@Html.DisplayFor(modelItem => item.Nome)</small>
+        </div>
+        <div class="col-md-2 text-left">
+            <small>@Html.DisplayFor(modelItem => item.Departamento)</small>
+        </div>
+        <div class="col-md-2 text-left">
+            <small>@Html.DisplayFor(modelItem => item.Email)</small>
+        </div>
+        <div class="col-md-2 text-left">
+            <small>@Html.DisplayFor(modelItem => item.Telefone1)</small>
+        </div>
+        <div class="col-md-2 text-left">
+            <small>@Html.DisplayFor(modelItem => item.Telefone2)</small>
+        </div>
+        
+        <div class="col-md-2 text-right">
+            @*usando data-id para passagem do nome do painel a atualizar*@
+            <a href="@Url.Action("PessoaContatosEditPartial", "Pessoas", new { id = item.PessoaContatoID })" data-modal="" data-id="replacetargetContato" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Alterar">
+                <span class='glyphicon glyphicon-pencil'></span>
+            </a>
+
+            @*usando data-id para passagem do nome do painel a atualizar*@
+            <a href="@Url.Action("PessoaContatosDeletePartial", "Pessoas", new { id = item.PessoaContatoID })" data-modal="" data-id="replacetargetContato" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Excluir">
+                <span class='glyphicon glyphicon-trash'></span>
+            </a>
+        </div>
+    </div>
+
+}
+
+<div class="row form-group">
+    <div class="col-md-12 text-left"><strong>Contatos: </strong> @Model.Count().ToString()</div>
+</div>
+<hr />
+
+@Scripts.Render("~/bundles/modalform")

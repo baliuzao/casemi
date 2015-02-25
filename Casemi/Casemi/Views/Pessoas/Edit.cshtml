@@ -1,7 +1,7 @@
 ﻿@model Casemi.Models.Pessoas
 
 @{
-    ViewBag.Title = "Pessoas";
+    ViewBag.Title = "Pessoas[Alterar]";
 }
 
 <h2>Alterar</h2>
@@ -18,13 +18,13 @@
 </div>
 
 
-<h3><small>Perfil de Relacionamento</small></h3>
+<h4>Perfil de Relacionamento</h4>
 @{
     Html.RenderAction("PerfilRelacionamentoPartial", "Pessoas", new { pessoaID = Model.PessoaID });
 }
 <br />
 <br />
-<h3><small>Dados Principais</small></h3>
+<h4>Dados Principais</h4>
 <hr />
 
 @using (Html.BeginForm())
@@ -43,14 +43,10 @@
                 @Html.ValidationMessageFor(model => model.TipoPessoa, "", new { @class = "text-danger" })
             </div>
 
+            @Html.LabelFor(model => model.Ativo, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-3">
-                <div class="checkbox">
-                    <label>
-                        @Html.EditorFor(model => model.Ativo)
-                        Ativo
-                    </label>
-                    @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
-                </div>
+                @Html.EditorFor(model => model.Ativo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Ativo, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -89,10 +85,7 @@
 }
 
 <div class="" id="divPessoaFisica">
-
     <br />
-    <h3><small>Dados de Pessoa Física</small></h3>
-    <hr />
     <div id="PessoaFisicaForm">
         @{
             Html.RenderAction("PessoaFisicaFormPartial", "Pessoas", new { pessoaID = Model.PessoaID });
@@ -102,8 +95,6 @@
 
 <div id="divPessoaJuridica">
     <br />
-    <h3><small>Dados de Pessoa Jurídica</small></h3>
-    <hr />
     <div id="PessoaJuridicaForm">
         @{
             Html.RenderAction("PessoaJuridicaFormPartial", "Pessoas", new { pessoaID = Model.PessoaID });
@@ -113,23 +104,32 @@
 
 <div id="divPessoaAssociado">
     <br />
-    <h3><small>Dados de Associação</small></h3>
-    <hr />
     <div id="PessoaAssociadoForm">
         @{ Html.RenderAction("PessoaAssociadoFormPartial", "Pessoas", new { pessoaID = Model.PessoaID });}
     </div>
 </div>
-
+<br />
+<br />
 <div id="divPessoaDependentes">
-    <br />
-    <h3><small>Dependentes</small></h3>
     <div id="replacetargetPessoaDependentes">
         @{ Html.RenderAction("PessoaDependentesListaPartial", "Pessoas", new { pessoaID = Model.PessoaID });}
     </div>
 </div>
-
-
-
+<br />
+<br />
+<div id="replacetargetContato">
+    @{ Html.RenderAction("PessoaContatosListaPartial", "Pessoas", new { pessoaID = Model.PessoaID }); }
+</div>
+<br />
+<br />
+<div id="replacetargetEndereco">
+    @{ Html.RenderAction("PessoaEnderecosListaPartial", "Pessoas", new { pessoaID = Model.PessoaID }); }
+</div>
+<br />
+<br />
+<div id="replacetargetTelefone">
+    @{ Html.RenderAction("PessoaTelefonesListaPartial", "Pessoas", new { pessoaID = Model.PessoaID }); }
+</div>
 
 
 

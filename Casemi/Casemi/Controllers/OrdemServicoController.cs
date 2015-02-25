@@ -10,7 +10,7 @@ using Casemi.Models;
 using System.Web.Security;
 using Microsoft.AspNet.Identity;
 
-namespace OrdemServicoWeb.Controllers
+namespace Casemi.Controllers
 {
 
     [Authorize]
@@ -125,7 +125,25 @@ namespace OrdemServicoWeb.Controllers
                 return HttpNotFound();
             }
 
-            return View(ordensServico);
+
+            OrdemServicoEdit ordemServicoEdit = new OrdemServicoEdit();
+            ordemServicoEdit.OrdemServicoID = ordensServico.OrdemServicoID;
+            ordemServicoEdit.Codigo = ordensServico.Codigo;
+            ordemServicoEdit.AberturaDataHora = ordensServico.AberturaDataHora;
+            ordemServicoEdit.AberturaUsuarioID = ordensServico.AberturaUsuarioID;
+            ordemServicoEdit.FechamentoDataHora = ordensServico.FechamentoDataHora;
+            ordemServicoEdit.FechamentoUsuarioID = ordensServico.FechamentoUsuarioID;
+            ordemServicoEdit.FornecedorID = ordensServico.FornecedorID;
+            ordemServicoEdit.FornecedorNome = ordensServico.Pessoas.Nome;
+            ordemServicoEdit.AssociadoID = ordensServico.AssociadoID;
+            ordemServicoEdit.AssociadoNome = ordensServico.Pessoas1.Nome;
+            ordemServicoEdit.ServicoID = ordensServico.ServicoID;
+            ordemServicoEdit.ServicoNome = ordensServico.Servicos.Nome;
+            ordemServicoEdit.Valor = ordensServico.Valor;
+            ordemServicoEdit.Observacao = ordensServico.Observacao;
+            ordemServicoEdit.Encerrada = ordensServico.Encerrada;
+
+            return View(ordemServicoEdit);
         }
 
         // POST: OrdemServico/Edit/5
@@ -133,21 +151,31 @@ namespace OrdemServicoWeb.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrdemServicoID,EmpresaID,Codigo,PessoaID,ClienteNome,Descricao,Combustivel,Cor,PrevisaoDeEntregaData,PrevisaoDeEntregaHora,Observacao,Placa,Marca,Modelo,Ano,KM,AberturaDataHora,OrdemServicoStatusID")] OrdensServico ordensServico)
+        public ActionResult Edit([Bind(Include = "OrdemServicoID,Codigo,AberturaDataHora,AberturaUsuarioID,FornecedorID,FornecedorNome,AssociadoID,AssociadoNome,ServicoID,ServicoNome,Valor,Observacao,Encerrada")] OrdemServicoEdit ordemServicoEdit)
         {
 
             if (ModelState.IsValid)
             {
+                OrdensServico ordensServico = new OrdensServico();
+                ordensServico.OrdemServicoID = ordemServicoEdit.OrdemServicoID;
+                ordensServico.Codigo = ordemServicoEdit.Codigo;
+                ordensServico.AberturaDataHora = ordemServicoEdit.AberturaDataHora;
+                ordensServico.AberturaUsuarioID = ordemServicoEdit.AberturaUsuarioID;
+                ordensServico.FechamentoDataHora = ordemServicoEdit.FechamentoDataHora;
+                ordensServico.FechamentoUsuarioID = ordemServicoEdit.FechamentoUsuarioID;
+                ordensServico.FornecedorID = ordemServicoEdit.FornecedorID;
+                ordensServico.AssociadoID = ordemServicoEdit.AssociadoID;
+                ordensServico.ServicoID = ordemServicoEdit.ServicoID;
+                ordensServico.Valor = ordemServicoEdit.Valor;
+                ordensServico.Observacao = ordemServicoEdit.Observacao;
+                ordensServico.Encerrada = ordemServicoEdit.Encerrada;
 
                 db.Entry(ordensServico).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            //ViewBag.PessoaID = new SelectList(db.Pessoas, "PessoaID", "Nome", ordensServico.PessoaID);
-            //ViewBag.OrdemServicoStatusID = new SelectList(db.OrdemServicoStatus.OrderBy(x => x.Ordem), "OrdemServicoStatusID", "Nome", ordensServicoCreate.OrdemServicoStatusID);
-            //ViewBag.OrdemServicoID = ordensServico.OrdemServicoID;
-            return View(ordensServico);
+            return View(ordemServicoEdit);
         }
 
 

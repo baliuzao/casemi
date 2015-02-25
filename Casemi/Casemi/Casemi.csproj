@@ -208,17 +208,33 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CasemiModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\CentrosCusto.cs">
+      <DependentUpon>CasemiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ContasPagar.cs">
+      <DependentUpon>CasemiModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Departamentos.cs">
       <DependentUpon>CasemiModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DependenteTipos.cs">
       <DependentUpon>CasemiModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FormasPagamento.cs">
+      <DependentUpon>CasemiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\FormasPagamentoParcelas.cs">
+      <DependentUpon>CasemiModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Metadata.cs" />
     <Compile Include="Models\OrdemServicoCreate.cs" />
+    <Compile Include="Models\OrdemServicoEdit.cs" />
     <Compile Include="Models\OrdensServico.cs">
+      <DependentUpon>CasemiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PagamentoTipos.cs">
       <DependentUpon>CasemiModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Parcialclasses.cs" />
@@ -255,6 +271,9 @@
     <Compile Include="Models\PessoaTipos.cs">
       <DependentUpon>CasemiModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\PlanoContas.cs">
+      <DependentUpon>CasemiModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ProdutoGrupos.cs">
       <DependentUpon>CasemiModel.tt</DependentUpon>
     </Compile>
@@ -264,7 +283,13 @@
     <Compile Include="Models\Servicos.cs">
       <DependentUpon>CasemiModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UF.cs">
+      <DependentUpon>CasemiModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UnidadesDeMedida.cs">
+      <DependentUpon>CasemiModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserProfile.cs">
       <DependentUpon>CasemiModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -441,6 +466,18 @@
     <Content Include="Views\OrdemServico\_OrdemServicoServicosDeletePartial.cshtml" />
     <Content Include="Views\OrdemServico\_OrdemServicoServicosEditPartial.cshtml" />
     <Content Include="Views\OrdemServico\_OrdemServicoServicosListaPartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaContatosCreatePartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaContatosDeletePartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaContatosEditPartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaContatosListaPartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaEnderecosCreatePartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaEnderecosDeletePartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaEnderecosEditPartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaEnderecosListaPartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaTelefonesCreatePartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaTelefonesDeletePartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaTelefonesEditPartial.cshtml" />
+    <Content Include="Views\Pessoas\_PessoaTelefonesListaPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

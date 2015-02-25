@@ -94,9 +94,16 @@ namespace Casemi.Models
         [HiddenInput(DisplayValue=false)]
         public System.Guid PessoaID { get; set; }
 
-        [Display(Name="Matrícula")]
-        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Matrícula")]
         public string Matricula { get; set; }
+
+        [Required]
+        [Display(Name = "Código")]        
+        public string CodigoAssociado { get; set; }
+
+        [Display(Name = "Cód. Antigo")]
+        public string CodigoAssociadoAntigo { get; set; }
         
         [Display(Name = "Departamento")]
         public Nullable<System.Guid> DepartamentoID { get; set; }
@@ -136,11 +143,13 @@ namespace Casemi.Models
         
         [HiddenInput(DisplayValue = false)]
         public System.Guid PessoaID { get; set; }
-        
+
         [Required]
-        [Display(Name = "Matrícula")]
-        [DataType(DataType.Text)]
-        public string Matricula { get; set; }
+        [Display(Name="Código")]
+        public string CodigoAssociado { get; set; }
+
+        [Display(Name = "Cód. Antigo")]
+        public string CodigoAssociadoAntigo { get; set; }
 
         [Display(Name = "Nome")]
         [Required]

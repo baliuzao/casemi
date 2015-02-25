@@ -1,6 +1,10 @@
 ﻿@model Casemi.Models.PessoaJuridica
 
 
+
+
+<h4>Dados de Pessoa Jurídica</h4>
+<hr />
 @using (Ajax.BeginForm("PessoaJuridicaFormPartial", "Pessoas", new AjaxOptions { UpdateTargetId = "PessoaJuridicaForm", OnComplete = "$('#pessoaJuridicaFormMessage').fadeIn(); $('#pessoaJuridicaFormMessage').fadeOut(5000);" }))
 {
     @Html.AntiForgeryToken()

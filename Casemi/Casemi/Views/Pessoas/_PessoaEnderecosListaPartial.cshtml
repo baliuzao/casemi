@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Casemi.Models.PessoaEnderecos>
+
+<h4>Endereços</h4>
+<hr />
+<div class="row form-group">
+    <div class="col-md-2"><strong>@Html.DisplayNameFor(model => model.Nome)</strong></div>
+    <div class="col-md-8"><strong>Endereço</strong></div>
+    <div class="col-md-2 text-right">
+        <a href="@Url.Action("PessoaEnderecosCreatePartial", "Pessoas", new { PessoaID = ViewBag.PessoaID })" data-modal="" data-id="replacetargetEndereco" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Adicionar">
+            <span class='glyphicon glyphicon-plus'></span>
+        </a>
+    </div>
+</div>
+
+@foreach (var item in Model)
+{
+    <div class="row form-group">
+        <div class="col-md-2 text-left">
+            <small>@Html.DisplayFor(modelItem => item.Nome)</small>
+        </div>
+        <div class="col-md-8 text-left">
+            <small>
+                @Html.DisplayFor(modelItem => item.Logradouro), @Html.DisplayFor(modelItem => item.Numero) @Html.DisplayFor(modelItem => item.Complemento), @Html.DisplayFor(modelItem => item.Bairro), @Html.DisplayFor(modelItem => item.Cidade)/@Html.DisplayFor(modelItem => item.UF), @Html.DisplayFor(modelItem => item.CEP)
+            </small>
+        </div>
+
+        <div class="col-md-2 text-right">
+            @*usando data-id para passagem do nome do painel a atualizar*@
+            <a href="@Url.Action("PessoaEnderecosEditPartial", "Pessoas", new { id = item.PessoaEnderecoID })" data-modal="" data-id="replacetargetEndereco" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Alterar">
+                <span class='glyphicon glyphicon-pencil'></span>
+            </a>
+
+            @*usando data-id para passagem do nome do painel a atualizar*@
+            <a href="@Url.Action("PessoaEnderecosDeletePartial", "Pessoas", new { id = item.PessoaEnderecoID })" data-modal="" data-id="replacetargetEndereco" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Excluir">
+                <span class='glyphicon glyphicon-trash'></span>
+            </a>
+        </div>
+    </div>
+}
+
+<div class="row form-group">
+    <div class="col-md-12 text-left"><strong>Endereços:</strong> @Model.Count().ToString()</div>
+</div>
+<hr />
+
+@Scripts.Render("~/bundles/modalform")

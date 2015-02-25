@@ -16,6 +16,8 @@ namespace Casemi.Models
     {
         public System.Guid PessoaID { get; set; }
         public string Matricula { get; set; }
+        public string CodigoAssociado { get; set; }
+        public string CodigoAssociadoAntigo { get; set; }
         public Nullable<System.Guid> DepartamentoID { get; set; }
         public string Profissao { get; set; }
         public Nullable<decimal> RendaMensal { get; set; }

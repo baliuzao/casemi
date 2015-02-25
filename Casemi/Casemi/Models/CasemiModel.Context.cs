@@ -25,8 +25,14 @@ namespace Casemi.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<CentrosCusto> CentrosCusto { get; set; }
+        public virtual DbSet<ContasPagar> ContasPagar { get; set; }
         public virtual DbSet<Departamentos> Departamentos { get; set; }
         public virtual DbSet<DependenteTipos> DependenteTipos { get; set; }
+        public virtual DbSet<FormasPagamento> FormasPagamento { get; set; }
+        public virtual DbSet<FormasPagamentoParcelas> FormasPagamentoParcelas { get; set; }
+        public virtual DbSet<OrdensServico> OrdensServico { get; set; }
+        public virtual DbSet<PagamentoTipos> PagamentoTipos { get; set; }
         public virtual DbSet<PessoaAssociado> PessoaAssociado { get; set; }
         public virtual DbSet<PessoaContatos> PessoaContatos { get; set; }
         public virtual DbSet<PessoaDependentes> PessoaDependentes { get; set; }
@@ -38,10 +44,12 @@ namespace Casemi.Models
         public virtual DbSet<PessoasPessoaTipos> PessoasPessoaTipos { get; set; }
         public virtual DbSet<PessoaTelefones> PessoaTelefones { get; set; }
         public virtual DbSet<PessoaTipos> PessoaTipos { get; set; }
+        public virtual DbSet<PlanoContas> PlanoContas { get; set; }
         public virtual DbSet<ProdutoGrupos> ProdutoGrupos { get; set; }
         public virtual DbSet<Produtos> Produtos { get; set; }
-        public virtual DbSet<UnidadesDeMedida> UnidadesDeMedida { get; set; }
         public virtual DbSet<Servicos> Servicos { get; set; }
-        public virtual DbSet<OrdensServico> OrdensServico { get; set; }
+        public virtual DbSet<UF> UF { get; set; }
+        public virtual DbSet<UnidadesDeMedida> UnidadesDeMedida { get; set; }
+        public virtual DbSet<UserProfile> UserProfile { get; set; }
     }
 }

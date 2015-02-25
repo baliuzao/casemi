@@ -181,7 +181,7 @@ namespace Casemi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PessoaAssociadoFormPartial([Bind(Include = "PessoaID,Matricula,DepartamentoID,Profissao,RendaMensal,LimiteDeCredito,AssociadoDesde,Aposentado,Afastado")] PessoaAssociado pessoaAssociado)
+        public ActionResult PessoaAssociadoFormPartial([Bind(Include = "PessoaID,DepartamentoID,Profissao,RendaMensal,LimiteDeCredito,AssociadoDesde,Aposentado,Afastado,CodigoAssociado,CodigoAssociadoAntigo,Matricula")] PessoaAssociado pessoaAssociado)
         {
             ViewBag.DepartamentoID = new SelectList(db.Departamentos.OrderBy(x => x.Nome).ToList(), "DepartamentoID", "Nome", pessoaAssociado.DepartamentoID);
             try
@@ -361,21 +361,6 @@ namespace Casemi.Controllers
                     db.PessoasPessoaTipos.Add(pessoaPessoaTipo);
                     db.SaveChanges();
 
-                    //if (db.PessoaTipos.Find(pessoaTipoID).Nome.ToUpper() == "ASSOCIADO")
-                    //{
-                    //    if (db.PessoaAssociado.Where(x => x.PessoaID == pessoaID).Count() == 0)
-                    //    {
-                    //        PessoaAssociado pessoaAssociado = new PessoaAssociado();
-                    //        pessoaAssociado.PessoaID = pessoaPessoaTipo.PessoaID;
-                    //        pessoaAssociado.Matricula = (db.PessoasPessoaTipos.Where(x => x.PessoaTipos.Nome.ToUpper() == "ASSOCIADO").Count() + 1).ToString();
-                    //        pessoaAssociado.AssociadoDesde = DateTime.Now.Date;
-
-                    //        db.PessoaAssociado.Add(pessoaAssociado);
-                    //        db.SaveChanges();
-                    //        ModelState.AddModelError("Success", "Informações atualizadas!");
-                    //    }
-                    //}
-
                 }
             }
 
@@ -404,19 +389,13 @@ namespace Casemi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PessoaDependentesCreatePartial([Bind(Include = "PessoaDependenteID,PessoaID,Matricula,Nome,DataDeNascimento,DependenteTipoID,AssociadoDesde,Observacao,Ativo")] PessoaDependentes pessoaDependentes)
+        public ActionResult PessoaDependentesCreatePartial([Bind(Include = "PessoaDependenteID,PessoaID,Nome,DataDeNascimento,DependenteTipoID,AssociadoDesde,Observacao,Ativo,CodigoAssociado,CodigoAssociadoAntigo")] PessoaDependentes pessoaDependentes)
         {
 
 
 
             try
             {
-                //if (string.IsNullOrEmpty(pessoaDependentes.Matricula))
-                //{
-                //    pessoaDependentes.Matricula = db.Pessoas.Where(x => x.PessoaID == pessoaDependentes.PessoaID).FirstOrDefault().PessoaAssociado.Matricula + "-" + (db.Pessoas.Where(x => x.PessoaID == pessoaDependentes.PessoaID).FirstOrDefault().PessoaDependentes.Count() + 1).ToString();
-                //}
-
-
                 if (ModelState.IsValid)
                 {
                     db.PessoaDependentes.Add(pessoaDependentes);
@@ -458,7 +437,7 @@ namespace Casemi.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult PessoaDependentesEditPartial([Bind(Include = "PessoaDependenteID,PessoaID,Matricula,Nome,DataDeNascimento,DependenteTipoID,AssociadoDesde,Observacao,Ativo")] PessoaDependentes pessoaDependentes)
+        public ActionResult PessoaDependentesEditPartial([Bind(Include = "PessoaDependenteID,PessoaID,Nome,DataDeNascimento,DependenteTipoID,AssociadoDesde,Observacao,Ativo,CodigoAssociado,CodigoAssociadoAntigo")] PessoaDependentes pessoaDependentes)
         {
             if (ModelState.IsValid)
             {
@@ -500,6 +479,326 @@ namespace Casemi.Controllers
             string url = Url.Action("PessoaDependentesListaPartial", "Pessoas", new { pessoaID = pessoaDependentes.PessoaID });
             return Json(new { success = true, url = url });
         }
+
+
+
+
+
+        public ActionResult PessoaContatosCreatePartial(Guid pessoaID)
+        {
+            PessoaContatos pessoaContatos = new PessoaContatos();
+            pessoaContatos.PessoaID = pessoaID;
+            return PartialView("_PessoaContatosCreatePartial", pessoaContatos);
+        }
+
+        // POST: PessoaContatos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoaContatosCreatePartial([Bind(Include = "PessoaContatoID,PessoaID,Nome,Departamento,Email,Telefone1,Telefone2")] PessoaContatos pessoaContatos)
+        {
+            if (ModelState.IsValid)
+            {
+                pessoaContatos.PessoaContatoID = Guid.NewGuid();
+                db.PessoaContatos.Add(pessoaContatos);
+                db.SaveChanges();
+                string url = Url.Action("PessoaContatosListaPartial", "Pessoas", new { pessoaID = pessoaContatos.PessoaID });
+                return Json(new { success = true, url = url });
+            }
+            return PartialView("_PessoaContatosCreatePartial", pessoaContatos);
+        }
+
+        // GET: PessoaContatos/Edit/5
+        public ActionResult PessoaContatosEditPartial(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PessoaContatos pessoaContatos = db.PessoaContatos.Find(id);
+            if (pessoaContatos == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_PessoaContatosEditPartial", pessoaContatos);
+        }
+
+        // POST: PessoaContatos/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoaContatosEditPartial([Bind(Include = "PessoaContatoID,PessoaID,Nome,Departamento,Email,Telefone1,Telefone2")] PessoaContatos pessoaContatos)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(pessoaContatos).State = EntityState.Modified;
+                db.SaveChanges();
+                string url = Url.Action("PessoaContatosListaPartial", "Pessoas", new { pessoaID = pessoaContatos.PessoaID });
+                return Json(new { success = true, url = url });
+            }
+            return PartialView("_PessoaContatosEditPartial", pessoaContatos);
+        }
+
+        // GET: PessoaContatos/Delete/5
+        public ActionResult PessoaContatosDeletePartial(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PessoaContatos pessoaContatos = db.PessoaContatos.Find(id);
+            if (pessoaContatos == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_PessoaContatosDeletePartial", pessoaContatos);
+        }
+
+        // POST: PessoaContatos/Delete/5
+        [HttpPost, ActionName("PessoaContatosDeletePartial")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoaContatosDeletePartialConfirmed(Guid id)
+        {
+            PessoaContatos pessoaContatos = db.PessoaContatos.Find(id);
+            var pessoaID = pessoaContatos.PessoaID;
+            db.PessoaContatos.Remove(pessoaContatos);
+            db.SaveChanges();
+            string url = Url.Action("PessoaContatosListaPartial", "Pessoas", new { pessoaID = pessoaID });
+            return Json(new { success = true, url = url });
+        }
+
+        public ActionResult PessoaContatosListaPartial(Guid pessoaID)
+        {
+            if (pessoaID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var pessoaContatos = db.PessoaContatos.Where(x => x.PessoaID == pessoaID);
+            if (pessoaContatos == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.PessoaID = pessoaID;
+            return PartialView("_PessoaContatosListaPartial", pessoaContatos.OrderBy(x => x.Nome).ToList());
+        }
+
+        public ActionResult PessoaEnderecosCreatePartial(Guid pessoaID)
+        {
+            ViewBag.PessoaID = pessoaID;
+            return PartialView("_PessoaEnderecosCreatePartial");
+        }
+
+        // POST: PessoaEnderecos/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoaEnderecosCreatePartial([Bind(Include = "PessoaEnderecoID,PessoaID,Nome,CEP,Logradouro,Numero,Complemento,Bairro,Cidade,UF")] PessoaEnderecos pessoaEnderecos)
+        {
+
+            if (ModelState.IsValid)
+            {
+                pessoaEnderecos.PessoaEnderecoID = Guid.NewGuid();
+                db.PessoaEnderecos.Add(pessoaEnderecos);
+                db.SaveChanges();
+                string url = Url.Action("PessoaEnderecosListaPartial", "Pessoas", new { pessoaID = pessoaEnderecos.PessoaID });
+                return Json(new { success = true, url = url });
+            }
+
+            ViewBag.PessoaID = pessoaEnderecos.PessoaID;
+            return PartialView("_PessoaEnderecosCreatePartial", pessoaEnderecos);
+        }
+
+        // GET: PessoaEnderecos/Delete/5
+        public ActionResult PessoaEnderecosDeletePartial(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PessoaEnderecos pessoaEnderecos = db.PessoaEnderecos.Find(id);
+            if (pessoaEnderecos == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_PessoaEnderecosDeletePartial", pessoaEnderecos);
+        }
+
+        // POST: PessoaEnderecos/Delete/5
+        [HttpPost, ActionName("PessoaEnderecosDeletePartial")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoaEnderecosDeletePartialConfirmed(Guid id)
+        {
+
+            PessoaEnderecos pessoaEnderecos = db.PessoaEnderecos.Find(id);
+            var pessoaID = pessoaEnderecos.PessoaID;
+            db.PessoaEnderecos.Remove(pessoaEnderecos);
+            db.SaveChanges();
+            string url = Url.Action("PessoaEnderecosListaPartial", "Pessoas", new { pessoaID = pessoaID });
+            return Json(new { success = true, url = url });
+        }
+
+        // GET: PessoaEnderecos/Edit/5
+        public ActionResult PessoaEnderecosEditPartial(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PessoaEnderecos pessoaEnderecos = db.PessoaEnderecos.Find(id);
+            if (pessoaEnderecos == null)
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView("_PessoaEnderecosEditPartial", pessoaEnderecos);
+        }
+
+        // POST: PessoaEnderecos/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoaEnderecosEditPartial([Bind(Include = "PessoaEnderecoID,PessoaID,Nome,CEP,Logradouro,Numero,Complemento,Bairro,Cidade,UF")] PessoaEnderecos pessoaEnderecos)
+        {
+            if (ModelState.IsValid)
+            {
+
+                db.Entry(pessoaEnderecos).State = EntityState.Modified;
+                db.SaveChanges();
+                string url = Url.Action("PessoaEnderecosListaPartial", "Pessoas", new { pessoaID = pessoaEnderecos.PessoaID });
+                return Json(new { success = true, url = url });
+            }
+            return PartialView("_PessoaEnderecosEditPartial", pessoaEnderecos);
+        }
+
+        public ActionResult PessoaEnderecosListaPartial(Guid pessoaID)
+        {
+            if (pessoaID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var pessoaEnderecos = db.PessoaEnderecos.Where(x => x.PessoaID == pessoaID);
+            if (pessoaEnderecos == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.PessoaID = pessoaID;
+            return PartialView("_PessoaEnderecosListaPartial", pessoaEnderecos.OrderBy(x => x.Nome).ToList());
+        }
+
+        
+
+        // GET: PessoaTelefones/Create
+        public ActionResult PessoaTelefonesCreatePartial(Guid pessoaID)
+        {
+            PessoaTelefones pessoaTelefones = new PessoaTelefones();
+            pessoaTelefones.PessoaID = pessoaID;
+            return PartialView("_PessoaTelefonesCreatePartial", pessoaTelefones);
+        }
+
+        // POST: PessoaTelefones/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoaTelefonesCreatePartial([Bind(Include = "PessoaTelefoneID,PessoaID,Tipo,Numero")] PessoaTelefones pessoaTelefones)
+        {
+
+            if (ModelState.IsValid)
+            {
+
+                pessoaTelefones.PessoaTelefoneID = Guid.NewGuid();
+                db.PessoaTelefones.Add(pessoaTelefones);
+                db.SaveChanges();
+                string url = Url.Action("PessoaTelefonesListaPartial", "Pessoas", new { pessoaID = pessoaTelefones.PessoaID });
+                return Json(new { success = true, url = url });
+            }
+            return PartialView("_PessoaTelefonesCreatePartial", pessoaTelefones);
+        }
+
+        // GET: PessoaTelefones/Delete/5
+        public ActionResult PessoaTelefonesDeletePartial(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PessoaTelefones pessoaTelefones = db.PessoaTelefones.Find(id);
+            if (pessoaTelefones == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_PessoaTelefonesDeletePartial", pessoaTelefones);
+        }
+
+        // POST: PessoaTelefones/Delete/5
+        [HttpPost, ActionName("PessoaTelefonesDeletePartial")]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoasTelefonesDeletePartialConfirmed(Guid id)
+        {
+            PessoaTelefones pessoaTelefones = db.PessoaTelefones.Find(id);
+            var pessoaID = pessoaTelefones.PessoaID;
+            db.PessoaTelefones.Remove(pessoaTelefones);
+            db.SaveChanges();
+            string url = Url.Action("PessoaTelefonesListaPartial", "Pessoas", new { pessoaID = pessoaID });
+            return Json(new { success = true, url = url });
+        }
+
+        // GET: PessoaTelefones/Edit/5
+        public ActionResult PessoaTelefonesEditPartial(Guid? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            PessoaTelefones pessoaTelefones = db.PessoaTelefones.Find(id);
+            if (pessoaTelefones == null)
+            {
+                return HttpNotFound();
+            }
+            return PartialView("_PessoaTelefonesEditPartial", pessoaTelefones);
+        }
+
+        // POST: PessoaTelefones/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult PessoaTelefonesEditPartial([Bind(Include = "PessoaTelefoneID,PessoaID,Tipo,Numero")] PessoaTelefones pessoaTelefones)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(pessoaTelefones).State = EntityState.Modified;
+                db.SaveChanges();
+                string url = Url.Action("PessoaTelefonesListaPartial", "Pessoas", new { pessoaID = pessoaTelefones.PessoaID });
+                return Json(new { success = true, url = url });
+            }
+            return PartialView("_PessoaTelefonesEditPartial", pessoaTelefones);
+        }
+
+        public ActionResult PessoaTelefonesListaPartial(Guid pessoaID)
+        {
+            if (pessoaID == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            var pessoaTelefones = db.PessoaTelefones.Where(x => x.PessoaID == pessoaID);
+            if (pessoaTelefones == null)
+            {
+                return HttpNotFound();
+            }
+
+            ViewBag.PessoaID = pessoaID;
+            return PartialView("_PessoaTelefonesListaPartial", pessoaTelefones.OrderBy(x => x.Tipo).ToList());
+        }
+
+        
+
 
         protected override void Dispose(bool disposing)
         {
