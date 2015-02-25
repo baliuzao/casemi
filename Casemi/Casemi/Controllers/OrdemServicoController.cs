@@ -77,7 +77,7 @@ namespace Casemi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrdemServicoID,AberturaDataHora,AberturaUsuarioID,FornecedorID,FornecedorNome,AssociadoID,AssociadoNome,ServicoID,ServicoNome,Valor,Observacao")] OrdemServicoCreate ordemServicoCreate)
+        public ActionResult Create([Bind(Include = "OrdemServicoID,AberturaDataHora,AberturaUsuarioID,FornecedorNome,AssociadoID,AssociadoNome,ServicoID,ServicoNome,Observacao")] OrdemServicoCreate ordemServicoCreate)
         {
             ordemServicoCreate.OrdemServicoID = Guid.NewGuid();
             ordemServicoCreate.AberturaDataHora = DateTime.Now;
@@ -95,10 +95,8 @@ namespace Casemi.Controllers
                 ordemServico.Codigo = ordemServicoCreate.Codigo;
                 ordemServico.AberturaDataHora = ordemServicoCreate.AberturaDataHora;
                 ordemServico.AberturaUsuarioID = ordemServicoCreate.AberturaUsuarioID;
-                ordemServico.FornecedorID = ordemServicoCreate.FornecedorID;
                 ordemServico.AssociadoID = ordemServicoCreate.AssociadoID;
                 ordemServico.ServicoID = ordemServicoCreate.ServicoID;
-                ordemServico.Valor = ordemServicoCreate.Valor;
                 ordemServico.Observacao = ordemServicoCreate.Observacao;
                 ordemServico.Encerrada = ordemServicoCreate.Encerrada;
 
@@ -134,7 +132,8 @@ namespace Casemi.Controllers
             ordemServicoEdit.FechamentoDataHora = ordensServico.FechamentoDataHora;
             ordemServicoEdit.FechamentoUsuarioID = ordensServico.FechamentoUsuarioID;
             ordemServicoEdit.FornecedorID = ordensServico.FornecedorID;
-            ordemServicoEdit.FornecedorNome = ordensServico.Pessoas.Nome;
+
+            if (ordensServico.Pessoas != null) ordemServicoEdit.FornecedorNome = ordensServico.Pessoas.Nome;
             ordemServicoEdit.AssociadoID = ordensServico.AssociadoID;
             ordemServicoEdit.AssociadoNome = ordensServico.Pessoas1.Nome;
             ordemServicoEdit.ServicoID = ordensServico.ServicoID;
@@ -151,7 +150,7 @@ namespace Casemi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrdemServicoID,Codigo,AberturaDataHora,AberturaUsuarioID,FornecedorID,FornecedorNome,AssociadoID,AssociadoNome,ServicoID,ServicoNome,Valor,Observacao,Encerrada")] OrdemServicoEdit ordemServicoEdit)
+        public ActionResult Edit([Bind(Include = "OrdemServicoID,Codigo,AberturaDataHora,AberturaUsuarioID,FornecedorID,FornecedorNome,AssociadoID,AssociadoNome,ServicoID,ServicoNome,Valor,Observacao,Encerrada,ValorDesconto")] OrdemServicoEdit ordemServicoEdit)
         {
 
             if (ModelState.IsValid)
@@ -167,6 +166,7 @@ namespace Casemi.Controllers
                 ordensServico.AssociadoID = ordemServicoEdit.AssociadoID;
                 ordensServico.ServicoID = ordemServicoEdit.ServicoID;
                 ordensServico.Valor = ordemServicoEdit.Valor;
+                ordensServico.ValorDesconto = ordemServicoEdit.ValorDesconto;
                 ordensServico.Observacao = ordemServicoEdit.Observacao;
                 ordensServico.Encerrada = ordemServicoEdit.Encerrada;
 

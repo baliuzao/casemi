@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Casemi.Models;
+using PagedList;
 
 namespace Casemi.Controllers
 {
@@ -16,9 +17,20 @@ namespace Casemi.Controllers
         private CasemiDesenvolvimentoEntities db = new CasemiDesenvolvimentoEntities();
 
         // GET: Pessoas
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string currentFilter, int? page)
         {
             var pessoas = db.Pessoas.Include(p => p.PessoasPessoaTipos);
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -26,8 +38,19 @@ namespace Casemi.Controllers
                         x => x.Nome.Contains(searchString)
                 );
             }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            return View(pessoas.OrderBy(x => x.Nome).ToList());
+            
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+
+
+            return View(pessoas.OrderBy(x => x.Nome).ToPagedList(pageNumber, pageSize));
+            //return View(pessoas.OrderBy(x => x.Nome).ToList());
         }
 
         // GET: Pessoas/Details/5

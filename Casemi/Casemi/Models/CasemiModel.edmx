@@ -91,6 +91,7 @@
           <Property Name="AssociadoID" Type="uniqueidentifier" />
           <Property Name="ServicoID" Type="uniqueidentifier" />
           <Property Name="Valor" Type="money" />
+          <Property Name="ValorDesconto" Type="money" />
           <Property Name="Observacao" Type="text" />
           <Property Name="Encerrada" Type="bit" />
         </EntityType>
@@ -967,6 +968,7 @@
           <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas" FromRole="OrdensServico" ToRole="Pessoas" />
           <NavigationProperty Name="Pessoas1" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1" FromRole="OrdensServico" ToRole="Pessoas" />
           <NavigationProperty Name="Servicos" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos" FromRole="OrdensServico" ToRole="Servicos" />
+          <Property Name="ValorDesconto" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="PagamentoTipos">
           <Key>
@@ -1600,6 +1602,7 @@
           <EntitySetMapping Name="OrdensServico">
             <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.OrdensServico">
               <MappingFragment StoreEntitySet="OrdensServico">
+                <ScalarProperty Name="ValorDesconto" ColumnName="ValorDesconto" />
                 <ScalarProperty Name="Encerrada" ColumnName="Encerrada" />
                 <ScalarProperty Name="Observacao" ColumnName="Observacao" />
                 <ScalarProperty Name="Valor" ColumnName="Valor" />

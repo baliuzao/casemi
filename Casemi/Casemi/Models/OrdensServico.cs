@@ -26,6 +26,7 @@ namespace Casemi.Models
         public Nullable<decimal> Valor { get; set; }
         public string Observacao { get; set; }
         public Nullable<bool> Encerrada { get; set; }
+        public Nullable<decimal> ValorDesconto { get; set; }
     
         public virtual Pessoas Pessoas { get; set; }
         public virtual Pessoas Pessoas1 { get; set; }

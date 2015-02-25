@@ -265,7 +265,6 @@ namespace Casemi.Models
         public Nullable<System.DateTime> FechamentoDataHora { get; set; }
         [Display(Name = "Fechada por")]
         public Nullable<System.Guid> FechamentoUsuarioID { get; set; }
-        [Required]
         [Display(Name = "Fornecedor")]
         public Nullable<System.Guid> FornecedorID { get; set; }
         [Required]
@@ -274,7 +273,6 @@ namespace Casemi.Models
         [Required]
         [Display(Name = "Serviço")]
         public Nullable<System.Guid> ServicoID { get; set; }
-        [Required]
         [Display(Name = "Valor")]
         [DataType(DataType.Currency)]
         public Nullable<decimal> Valor { get; set; }

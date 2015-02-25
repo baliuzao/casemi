@@ -1,4 +1,6 @@
-﻿@model IEnumerable<Casemi.Models.Pessoas>
+﻿@using PagedList.Mvc;
+@using PagedList;
+@model IEnumerable<Casemi.Models.Pessoas>
 
 @{
     ViewBag.Title = "Pessoas[Lista]";
@@ -14,7 +16,7 @@
         @using (Html.BeginForm("Index", "Pessoas", FormMethod.Get))
         {
             <div class="input-group">
-                <input type="text" class="form-control pull-right" placeholder="Pesquisar..." name="searchString" data-toggle="tooltip" data-placement="top" title="Este campo pesquisa em: Nome, Matrícula, CPF, CNPJ">
+                <input type="text" class="form-control pull-right" placeholder="Pesquisar..." name="searchString" data-toggle="tooltip" data-placement="top" title="Este campo pesquisa em: Nome, Matrícula, CPF, CNPJ" value="@ViewBag.CurrentFilter">
                 <span class="input-group-btn">
                     <button class="btn btn-primary" type="submit"><i class="glyphicon glyphicon-search" data-toggle="tooltip" data-placement="top" title="Pesquisar"></i></button>
                 </span>
@@ -23,18 +25,26 @@
     </div>
 </div>
 <br />
-<div class="row">
-    <div class="col-md-12 text-right">
-        <a href="@Url.Action("Create","Pessoas",null)" class="btn btn-success">
-            <i class="glyphicon glyphicon-plus"></i> Adicionar
-        </a>
+<div class="form-horizontal">
+
+    <div class="form-group">
+        <div class="col-md-6 text-left ">
+            <br />
+            <a href="@Url.Action("Create","Pessoas",null)" class="btn btn-success">
+                <i class="glyphicon glyphicon-plus"></i> Adicionar
+            </a>
+        </div>
+        <div class="col-md-6 text-right">
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+
     </div>
 </div>
 <hr />
 
 <div class="row">
     <div class="col-md-2"><strong>@Html.DisplayNameFor(model => model.PessoaAssociado.Matricula)</strong></div>
-    <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Nome)</strong></div>    
+    <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Nome)</strong></div>
     <div class="col-md-4"><strong>@Html.DisplayNameFor(model => model.Email)</strong></div>
     <div class="col-md-2 text-right"></div>
 </div>
@@ -56,8 +66,8 @@
                 <i class="glyphicon glyphicon-pencil"></i>
             </a>
             @*<a href="@Url.Action("Details", "Pessoas", new { id = item.PessoaID })" class="btn btn-info">
-                <i class="glyphicon glyphicon-search"></i>
-            </a>*@
+                    <i class="glyphicon glyphicon-search"></i>
+                </a>*@
             <a href="@Url.Action("Delete", "Pessoas", new { id = item.PessoaID })" class="btn btn-danger">
                 <i class="glyphicon glyphicon-trash"></i>
             </a>
@@ -65,4 +75,17 @@
     </div>
     <hr />
 }
+
+<div class="row">
+    <div class="col-md-12 text-right">
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>
+
+
+
+
+
+
+
 

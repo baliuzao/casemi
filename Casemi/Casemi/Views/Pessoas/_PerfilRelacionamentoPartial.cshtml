@@ -1,20 +1,25 @@
 ﻿@model IEnumerable<Casemi.Models.PessoasPessoaTipos>
 
-@foreach (var pessoaTipo in ViewBag.PessoaTipos)
-{
-    string btnDefault = "btn btn-default";
-    string iconDefault = "glyphicon glyphicon-unchecked";
 
-    string btnPrimary = "btn btn-primary";
-    string iconPrimary = "glyphicon glyphicon-check";
+    @foreach (var pessoaTipo in ViewBag.PessoaTipos)
+    {
 
-    int qtd = Model.Where(x => x.PessoaID == ViewBag.PessoaID).Where(x => x.PessoaTipoID == pessoaTipo.PessoaTipoID).Count();
-    if (qtd == 0)
-    {
-        <a href="@Url.Action("PerfilRelacionamentoAlteraPerfil", "Pessoas", new { PessoaID = ViewBag.PessoaID, PessoaTipoID = pessoaTipo.PessoaTipoID })" class="@btnDefault" id="btn_@pessoaTipo.Nome"><i class="@iconDefault"></i> @pessoaTipo.Nome</a>
+        string btnDefault = "btn btn-default col-md-2 text-center";
+        string iconDefault = "glyphicon glyphicon-unchecked";
+
+        string btnPrimary = "btn btn-primary col-md-2 text-center";
+        string iconPrimary = "glyphicon glyphicon-check";
+
+        int qtd = Model.Where(x => x.PessoaID == ViewBag.PessoaID).Where(x => x.PessoaTipoID == pessoaTipo.PessoaTipoID).Count();
+        if (qtd == 0)
+        {
+            <a href="@Url.Action("PerfilRelacionamentoAlteraPerfil", "Pessoas", new { PessoaID = ViewBag.PessoaID, PessoaTipoID = pessoaTipo.PessoaTipoID })" class="@btnDefault" id="btn_@pessoaTipo.Nome"><i class="@iconDefault"></i> @pessoaTipo.Nome</a>
+        
+        }
+        else
+        {
+            <a href="@Url.Action("PerfilRelacionamentoAlteraPerfil", "Pessoas", new { PessoaID = ViewBag.PessoaID, PessoaTipoID = pessoaTipo.PessoaTipoID })" class="@btnPrimary"><i class="@iconPrimary"></i> @pessoaTipo.Nome</a>
+
+        }
+
     }
-    else
-    {
-        <a href="@Url.Action("PerfilRelacionamentoAlteraPerfil", "Pessoas", new { PessoaID = ViewBag.PessoaID, PessoaTipoID = pessoaTipo.PessoaTipoID })" class="@btnPrimary"><i class="@iconPrimary"></i> @pessoaTipo.Nome</a>
-    }
-}
