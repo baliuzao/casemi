@@ -6,10 +6,10 @@
 
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-8">
         <h2>Ordens de Serviço</h2>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
         <br />
         @using (Html.BeginForm("Index", "OrdemServico", FormMethod.Get))
         {
@@ -66,7 +66,13 @@
             <small>@Html.DisplayFor(modelItem => item.Codigo)</small>
         </div>
         <div class="col-md-2">
-            <small>@Html.DisplayFor(modelItem => item.Pessoas1.Nome)</small>
+            <small>
+                @Html.DisplayFor(modelItem => item.Pessoas1.Nome)
+            </small>
+            @if (item.PessoaDependentes != null)
+            {
+                @*<strong>@Html.DisplayFor(modelItem => item.pesso)</strong>*@
+            }
         </div>
         <div class="col-md-2">
             <small>@Html.DisplayFor(modelItem => item.Pessoas.Nome)</small>

@@ -31,9 +31,7 @@ namespace Casemi.Models
         public virtual DbSet<DependenteTipos> DependenteTipos { get; set; }
         public virtual DbSet<FormasPagamento> FormasPagamento { get; set; }
         public virtual DbSet<FormasPagamentoParcelas> FormasPagamentoParcelas { get; set; }
-        public virtual DbSet<OrdensServico> OrdensServico { get; set; }
         public virtual DbSet<PagamentoTipos> PagamentoTipos { get; set; }
-        public virtual DbSet<PessoaAssociado> PessoaAssociado { get; set; }
         public virtual DbSet<PessoaContatos> PessoaContatos { get; set; }
         public virtual DbSet<PessoaDependentes> PessoaDependentes { get; set; }
         public virtual DbSet<PessoaDocumentos> PessoaDocumentos { get; set; }
@@ -51,5 +49,7 @@ namespace Casemi.Models
         public virtual DbSet<UF> UF { get; set; }
         public virtual DbSet<UnidadesDeMedida> UnidadesDeMedida { get; set; }
         public virtual DbSet<UserProfile> UserProfile { get; set; }
+        public virtual DbSet<PessoaAssociado> PessoaAssociado { get; set; }
+        public virtual DbSet<OrdensServico> OrdensServico { get; set; }
     }
 }

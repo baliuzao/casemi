@@ -14,6 +14,11 @@ namespace Casemi.Models
     
     public partial class PessoaDependentes
     {
+        public PessoaDependentes()
+        {
+            this.OrdensServico = new HashSet<OrdensServico>();
+        }
+    
         public System.Guid PessoaDependenteID { get; set; }
         public System.Guid PessoaID { get; set; }
         public string Nome { get; set; }
@@ -27,5 +32,6 @@ namespace Casemi.Models
     
         public virtual DependenteTipos DependenteTipos { get; set; }
         public virtual Pessoas Pessoas { get; set; }
+        public virtual ICollection<OrdensServico> OrdensServico { get; set; }
     }
 }

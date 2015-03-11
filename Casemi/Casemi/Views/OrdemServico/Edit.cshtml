@@ -39,18 +39,23 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.AssociadoID, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @Html.TextBoxFor(Model => Model.AssociadoNome, new { @class = "autocomplete-with-hidden form-control", @readonly = "true", data_url = Url.Action("AutoCompleteAssociado", "OrdemServico") })
                 @Html.HiddenFor(Model => Model.AssociadoID)
                 @Html.ValidationMessageFor(model => model.AssociadoNome, "", new { @class = "text-danger" })
-            </div>
+            </div>           
 
-           
+            @Html.LabelFor(model => model.DependenteID, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-4">
+                @Html.TextBoxFor(Model => Model.DependenteNome, new { @class = "dependenteAutoCompleteWithHidden form-control", @readonly = "true", data_url = Url.Action("AutoCompleteDependente", "OrdemServico") })
+                @Html.HiddenFor(Model => Model.DependenteID)
+                @Html.ValidationMessageFor(model => model.DependenteNome, "", new { @class = "text-danger" })
+            </div>
         </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.FornecedorID, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @Html.TextBoxFor(Model => Model.FornecedorNome, new { @class = "autocomplete-with-hidden form-control", data_url = Url.Action("AutoCompleteFornecedor", "OrdemServico") })
                 @Html.HiddenFor(Model => Model.FornecedorID)
                 @Html.ValidationMessageFor(model => model.FornecedorID, "", new { @class = "text-danger" })
@@ -59,7 +64,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.ServicoID, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @Html.TextBoxFor(Model => Model.ServicoNome, new { @class = "autocomplete-with-hidden form-control", @readonly = "true", data_url = Url.Action("AutoCompleteServico", "OrdemServico") })
                 @Html.HiddenFor(Model => Model.ServicoID)
                 @Html.ValidationMessageFor(model => model.ServicoID, "", new { @class = "text-danger" })
@@ -72,7 +77,7 @@
             </div>
 
             @Html.LabelFor(model => model.ValorDesconto, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-3">
+            <div class="col-md-2">
                 @Html.EditorFor(model => model.ValorDesconto, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.ValorDesconto, "", new { @class = "text-danger" })
             </div>
@@ -80,7 +85,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Observacao, htmlAttributes: new { @class = "control-label col-md-1" })
-            <div class="col-md-3">
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.Observacao, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Observacao, "", new { @class = "text-danger" })
             </div>

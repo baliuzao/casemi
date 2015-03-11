@@ -89,6 +89,7 @@
           <Property Name="FechamentoUsuarioID" Type="uniqueidentifier" />
           <Property Name="FornecedorID" Type="uniqueidentifier" />
           <Property Name="AssociadoID" Type="uniqueidentifier" />
+          <Property Name="DependenteID" Type="uniqueidentifier" />
           <Property Name="ServicoID" Type="uniqueidentifier" />
           <Property Name="Valor" Type="money" />
           <Property Name="ValorDesconto" Type="money" />
@@ -114,7 +115,9 @@
           <Property Name="Profissao" Type="nvarchar" MaxLength="128" />
           <Property Name="RendaMensal" Type="money" />
           <Property Name="LimiteDeCredito" Type="money" />
-          <Property Name="AssociadoDesde" Type="datetime" Nullable="false" />
+          <Property Name="AssociadoDesde" Type="datetime" />
+          <Property Name="AssociadoAmiseg" Type="bit" Nullable="false" />
+          <Property Name="AssociadoAmisegDesde" Type="date" />
           <Property Name="Aposentado" Type="bit" Nullable="false" />
           <Property Name="Afastado" Type="bit" Nullable="false" />
         </EntityType>
@@ -267,6 +270,7 @@
           </Key>
           <Property Name="ServicoID" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Nome" Type="nvarchar" MaxLength="255" />
+          <Property Name="DescontoParaAssociados" Type="float" Nullable="false" />
         </EntityType>
         <EntityType Name="UF">
           <Key>
@@ -358,6 +362,18 @@
             </Principal>
             <Dependent Role="FormasPagamentoParcelas">
               <PropertyRef Name="FormaPagamentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServico_PessoaDependentes">
+          <End Role="PessoaDependentes" Type="Self.PessoaDependentes" Multiplicity="0..1" />
+          <End Role="OrdensServico" Type="Self.OrdensServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PessoaDependentes">
+              <PropertyRef Name="PessoaDependenteID" />
+            </Principal>
+            <Dependent Role="OrdensServico">
+              <PropertyRef Name="DependenteID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -656,6 +672,10 @@
             <End Role="FormasPagamento" EntitySet="FormasPagamento" />
             <End Role="FormasPagamentoParcelas" EntitySet="FormasPagamentoParcelas" />
           </AssociationSet>
+          <AssociationSet Name="FK_OrdensServico_PessoaDependentes" Association="Self.FK_OrdensServico_PessoaDependentes">
+            <End Role="PessoaDependentes" EntitySet="PessoaDependentes" />
+            <End Role="OrdensServico" EntitySet="OrdensServico" />
+          </AssociationSet>
           <AssociationSet Name="FK_OrdensServico_Pessoas" Association="Self.FK_OrdensServico_Pessoas">
             <End Role="Pessoas" EntitySet="Pessoas" />
             <End Role="OrdensServico" EntitySet="OrdensServico" />
@@ -744,9 +764,7 @@
           <EntitySet Name="DependenteTipos" EntityType="CasemiDesenvolvimentoModel.DependenteTipos" />
           <EntitySet Name="FormasPagamento" EntityType="CasemiDesenvolvimentoModel.FormasPagamento" />
           <EntitySet Name="FormasPagamentoParcelas" EntityType="CasemiDesenvolvimentoModel.FormasPagamentoParcelas" />
-          <EntitySet Name="OrdensServico" EntityType="CasemiDesenvolvimentoModel.OrdensServico" />
           <EntitySet Name="PagamentoTipos" EntityType="CasemiDesenvolvimentoModel.PagamentoTipos" />
-          <EntitySet Name="PessoaAssociado" EntityType="CasemiDesenvolvimentoModel.PessoaAssociado" />
           <EntitySet Name="PessoaContatos" EntityType="CasemiDesenvolvimentoModel.PessoaContatos" />
           <EntitySet Name="PessoaDependentes" EntityType="CasemiDesenvolvimentoModel.PessoaDependentes" />
           <EntitySet Name="PessoaDocumentos" EntityType="CasemiDesenvolvimentoModel.PessoaDocumentos" />
@@ -784,10 +802,6 @@
             <End Role="PlanoContas" EntitySet="PlanoContas" />
             <End Role="ContasPagar" EntitySet="ContasPagar" />
           </AssociationSet>
-          <AssociationSet Name="FK_PessoaAssociado_Departamentos" Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos">
-            <End Role="Departamentos" EntitySet="Departamentos" />
-            <End Role="PessoaAssociado" EntitySet="PessoaAssociado" />
-          </AssociationSet>
           <AssociationSet Name="FK_PessoaDependentes_DependenteTipos" Association="CasemiDesenvolvimentoModel.FK_PessoaDependentes_DependenteTipos">
             <End Role="DependenteTipos" EntitySet="DependenteTipos" />
             <End Role="PessoaDependentes" EntitySet="PessoaDependentes" />
@@ -795,22 +809,6 @@
           <AssociationSet Name="FK_FormasPagamentoParcelas_FormasPagamento" Association="CasemiDesenvolvimentoModel.FK_FormasPagamentoParcelas_FormasPagamento">
             <End Role="FormasPagamento" EntitySet="FormasPagamento" />
             <End Role="FormasPagamentoParcelas" EntitySet="FormasPagamentoParcelas" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrdensServico_Pessoas" Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas">
-            <End Role="Pessoas" EntitySet="Pessoas" />
-            <End Role="OrdensServico" EntitySet="OrdensServico" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrdensServico_Pessoas1" Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1">
-            <End Role="Pessoas" EntitySet="Pessoas" />
-            <End Role="OrdensServico" EntitySet="OrdensServico" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrdensServico_Servicos" Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos">
-            <End Role="Servicos" EntitySet="Servicos" />
-            <End Role="OrdensServico" EntitySet="OrdensServico" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PessoaAssociado_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas">
-            <End Role="Pessoas" EntitySet="Pessoas" />
-            <End Role="PessoaAssociado" EntitySet="PessoaAssociado" />
           </AssociationSet>
           <AssociationSet Name="FK_PessoaContatos_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaContatos_Pessoas">
             <End Role="Pessoas" EntitySet="Pessoas" />
@@ -863,6 +861,32 @@
           <AssociationSet Name="FK_Produtos_UnidadesDeMedida1" Association="CasemiDesenvolvimentoModel.FK_Produtos_UnidadesDeMedida1">
             <End Role="UnidadesDeMedida" EntitySet="UnidadesDeMedida" />
             <End Role="Produtos" EntitySet="Produtos" />
+          </AssociationSet>
+          <EntitySet Name="PessoaAssociado" EntityType="CasemiDesenvolvimentoModel.PessoaAssociado" />
+          <AssociationSet Name="FK_PessoaAssociado_Departamentos" Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos">
+            <End Role="Departamentos" EntitySet="Departamentos" />
+            <End Role="PessoaAssociado" EntitySet="PessoaAssociado" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PessoaAssociado_Pessoas" Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="PessoaAssociado" EntitySet="PessoaAssociado" />
+          </AssociationSet>
+          <EntitySet Name="OrdensServico" EntityType="CasemiDesenvolvimentoModel.OrdensServico" />
+          <AssociationSet Name="FK_OrdensServico_PessoaDependentes" Association="CasemiDesenvolvimentoModel.FK_OrdensServico_PessoaDependentes">
+            <End Role="PessoaDependentes" EntitySet="PessoaDependentes" />
+            <End Role="OrdensServico" EntitySet="OrdensServico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServico_Pessoas" Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="OrdensServico" EntitySet="OrdensServico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServico_Pessoas1" Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1">
+            <End Role="Pessoas" EntitySet="Pessoas" />
+            <End Role="OrdensServico" EntitySet="OrdensServico" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdensServico_Servicos" Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos">
+            <End Role="Servicos" EntitySet="Servicos" />
+            <End Role="OrdensServico" EntitySet="OrdensServico" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="CentrosCusto">
@@ -949,27 +973,6 @@
           <Property Name="PercentualValorTotal" Type="Double" />
           <NavigationProperty Name="FormasPagamento" Relationship="CasemiDesenvolvimentoModel.FK_FormasPagamentoParcelas_FormasPagamento" FromRole="FormasPagamentoParcelas" ToRole="FormasPagamento" />
         </EntityType>
-        <EntityType Name="OrdensServico">
-          <Key>
-            <PropertyRef Name="OrdemServicoID" />
-          </Key>
-          <Property Name="OrdemServicoID" Type="Guid" Nullable="false" />
-          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="AberturaDataHora" Type="DateTime" Precision="3" />
-          <Property Name="AberturaUsuarioID" Type="Guid" />
-          <Property Name="FechamentoDataHora" Type="DateTime" Precision="3" />
-          <Property Name="FechamentoUsuarioID" Type="Guid" />
-          <Property Name="FornecedorID" Type="Guid" />
-          <Property Name="AssociadoID" Type="Guid" />
-          <Property Name="ServicoID" Type="Guid" />
-          <Property Name="Valor" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Observacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Encerrada" Type="Boolean" />
-          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas" FromRole="OrdensServico" ToRole="Pessoas" />
-          <NavigationProperty Name="Pessoas1" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1" FromRole="OrdensServico" ToRole="Pessoas" />
-          <NavigationProperty Name="Servicos" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos" FromRole="OrdensServico" ToRole="Servicos" />
-          <Property Name="ValorDesconto" Type="Decimal" Precision="19" Scale="4" />
-        </EntityType>
         <EntityType Name="PagamentoTipos">
           <Key>
             <PropertyRef Name="TipoPagamentoID" />
@@ -977,24 +980,6 @@
           <Property Name="TipoPagamentoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nome" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ContasPagar" Relationship="CasemiDesenvolvimentoModel.FK_ContasPagar_PagamentoTipos" FromRole="PagamentoTipos" ToRole="ContasPagar" />
-        </EntityType>
-        <EntityType Name="PessoaAssociado">
-          <Key>
-            <PropertyRef Name="PessoaID" />
-          </Key>
-          <Property Name="PessoaID" Type="Guid" Nullable="false" />
-          <Property Name="Matricula" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CodigoAssociado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CodigoAssociadoAntigo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DepartamentoID" Type="Guid" />
-          <Property Name="Profissao" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="RendaMensal" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="LimiteDeCredito" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="AssociadoDesde" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Aposentado" Type="Boolean" Nullable="false" />
-          <Property Name="Afastado" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Departamentos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos" FromRole="PessoaAssociado" ToRole="Departamentos" />
-          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" FromRole="PessoaAssociado" ToRole="Pessoas" />
         </EntityType>
         <EntityType Name="PessoaContatos">
           <Key>
@@ -1025,6 +1010,7 @@
           <Property Name="Ativo" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="DependenteTipos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDependentes_DependenteTipos" FromRole="PessoaDependentes" ToRole="DependenteTipos" />
           <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDependentes_Pessoas" FromRole="PessoaDependentes" ToRole="Pessoas" />
+          <NavigationProperty Name="OrdensServico" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_PessoaDependentes" FromRole="PessoaDependentes" ToRole="OrdensServico" />
         </EntityType>
         <EntityType Name="PessoaDocumentos">
           <Key>
@@ -1086,9 +1072,6 @@
           <Property Name="Observacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="TipoPessoa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ativo" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="OrdensServico" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas" FromRole="Pessoas" ToRole="OrdensServico" />
-          <NavigationProperty Name="OrdensServico1" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1" FromRole="Pessoas" ToRole="OrdensServico" />
-          <NavigationProperty Name="PessoaAssociado" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" FromRole="Pessoas" ToRole="PessoaAssociado" />
           <NavigationProperty Name="PessoaContatos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaContatos_Pessoas" FromRole="Pessoas" ToRole="PessoaContatos" />
           <NavigationProperty Name="PessoaDependentes" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDependentes_Pessoas" FromRole="Pessoas" ToRole="PessoaDependentes" />
           <NavigationProperty Name="PessoaDocumentos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaDocumentos_Pessoas" FromRole="Pessoas" ToRole="PessoaDocumentos" />
@@ -1097,6 +1080,9 @@
           <NavigationProperty Name="PessoaJuridica" Relationship="CasemiDesenvolvimentoModel.FK_PessoaJuridica_Pessoas" FromRole="Pessoas" ToRole="PessoaJuridica" />
           <NavigationProperty Name="PessoasPessoaTipos" Relationship="CasemiDesenvolvimentoModel.FK_PessoasPessoaTipos_Pessoas1" FromRole="Pessoas" ToRole="PessoasPessoaTipos" />
           <NavigationProperty Name="PessoaTelefones" Relationship="CasemiDesenvolvimentoModel.FK_PessoaTelefones_Pessoas" FromRole="Pessoas" ToRole="PessoaTelefones" />
+          <NavigationProperty Name="PessoaAssociado" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" FromRole="Pessoas" ToRole="PessoaAssociado" />
+          <NavigationProperty Name="OrdensServico" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas" FromRole="Pessoas" ToRole="OrdensServico" />
+          <NavigationProperty Name="OrdensServico1" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1" FromRole="Pessoas" ToRole="OrdensServico" />
         </EntityType>
         <EntityType Name="PessoasPessoaTipos">
           <Key>
@@ -1174,6 +1160,7 @@
           </Key>
           <Property Name="ServicoID" Type="Guid" Nullable="false" />
           <Property Name="Nome" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DescontoParaAssociados" Type="Double" Nullable="false" />
           <NavigationProperty Name="OrdensServico" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos" FromRole="Servicos" ToRole="OrdensServico" />
         </EntityType>
         <EntityType Name="UF">
@@ -1259,18 +1246,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PessoaAssociado_Departamentos">
-          <End Type="CasemiDesenvolvimentoModel.Departamentos" Role="Departamentos" Multiplicity="0..1" />
-          <End Type="CasemiDesenvolvimentoModel.PessoaAssociado" Role="PessoaAssociado" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Departamentos">
-              <PropertyRef Name="DepartamentoID" />
-            </Principal>
-            <Dependent Role="PessoaAssociado">
-              <PropertyRef Name="DepartamentoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PessoaDependentes_DependenteTipos">
           <End Type="CasemiDesenvolvimentoModel.DependenteTipos" Role="DependenteTipos" Multiplicity="0..1" />
           <End Type="CasemiDesenvolvimentoModel.PessoaDependentes" Role="PessoaDependentes" Multiplicity="*" />
@@ -1292,56 +1267,6 @@
             </Principal>
             <Dependent Role="FormasPagamentoParcelas">
               <PropertyRef Name="FormaPagamentoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrdensServico_Pessoas">
-          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="0..1" />
-          <End Type="CasemiDesenvolvimentoModel.OrdensServico" Role="OrdensServico" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pessoas">
-              <PropertyRef Name="PessoaID" />
-            </Principal>
-            <Dependent Role="OrdensServico">
-              <PropertyRef Name="FornecedorID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrdensServico_Pessoas1">
-          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="0..1" />
-          <End Type="CasemiDesenvolvimentoModel.OrdensServico" Role="OrdensServico" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Pessoas">
-              <PropertyRef Name="PessoaID" />
-            </Principal>
-            <Dependent Role="OrdensServico">
-              <PropertyRef Name="AssociadoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrdensServico_Servicos">
-          <End Type="CasemiDesenvolvimentoModel.Servicos" Role="Servicos" Multiplicity="0..1" />
-          <End Type="CasemiDesenvolvimentoModel.OrdensServico" Role="OrdensServico" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Servicos">
-              <PropertyRef Name="ServicoID" />
-            </Principal>
-            <Dependent Role="OrdensServico">
-              <PropertyRef Name="ServicoID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PessoaAssociado_Pessoas">
-          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="CasemiDesenvolvimentoModel.PessoaAssociado" Role="PessoaAssociado" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Pessoas">
-              <PropertyRef Name="PessoaID" />
-            </Principal>
-            <Dependent Role="PessoaAssociado">
-              <PropertyRef Name="PessoaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1515,6 +1440,123 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PessoaAssociado">
+          <Key>
+            <PropertyRef Name="PessoaID" />
+          </Key>
+          <Property Name="PessoaID" Type="Guid" Nullable="false" />
+          <Property Name="Matricula" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodigoAssociado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CodigoAssociadoAntigo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepartamentoID" Type="Guid" />
+          <Property Name="Profissao" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="RendaMensal" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LimiteDeCredito" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="AssociadoDesde" Type="DateTime" Precision="3" />
+          <Property Name="AssociadoAmiseg" Type="Boolean" Nullable="false" />
+          <Property Name="AssociadoAmisegDesde" Type="DateTime" Precision="0" />
+          <Property Name="Aposentado" Type="Boolean" Nullable="false" />
+          <Property Name="Afastado" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Departamentos" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos" FromRole="PessoaAssociado" ToRole="Departamentos" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" FromRole="PessoaAssociado" ToRole="Pessoas" />
+        </EntityType>
+        <Association Name="FK_PessoaAssociado_Departamentos">
+          <End Type="CasemiDesenvolvimentoModel.Departamentos" Role="Departamentos" Multiplicity="0..1" />
+          <End Type="CasemiDesenvolvimentoModel.PessoaAssociado" Role="PessoaAssociado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamentos">
+              <PropertyRef Name="DepartamentoID" />
+            </Principal>
+            <Dependent Role="PessoaAssociado">
+              <PropertyRef Name="DepartamentoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PessoaAssociado_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="CasemiDesenvolvimentoModel.PessoaAssociado" Role="PessoaAssociado" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="PessoaAssociado">
+              <PropertyRef Name="PessoaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="OrdensServico">
+          <Key>
+            <PropertyRef Name="OrdemServicoID" />
+          </Key>
+          <Property Name="OrdemServicoID" Type="Guid" Nullable="false" />
+          <Property Name="Codigo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AberturaDataHora" Type="DateTime" Precision="3" />
+          <Property Name="AberturaUsuarioID" Type="Guid" />
+          <Property Name="FechamentoDataHora" Type="DateTime" Precision="3" />
+          <Property Name="FechamentoUsuarioID" Type="Guid" />
+          <Property Name="FornecedorID" Type="Guid" />
+          <Property Name="AssociadoID" Type="Guid" />
+          <Property Name="DependenteID" Type="Guid" />
+          <Property Name="ServicoID" Type="Guid" />
+          <Property Name="Valor" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ValorDesconto" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Observacao" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Encerrada" Type="Boolean" />
+          <NavigationProperty Name="PessoaDependentes" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_PessoaDependentes" FromRole="OrdensServico" ToRole="PessoaDependentes" />
+          <NavigationProperty Name="Pessoas" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas" FromRole="OrdensServico" ToRole="Pessoas" />
+          <NavigationProperty Name="Pessoas1" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1" FromRole="OrdensServico" ToRole="Pessoas" />
+          <NavigationProperty Name="Servicos" Relationship="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos" FromRole="OrdensServico" ToRole="Servicos" />
+        </EntityType>
+        <Association Name="FK_OrdensServico_PessoaDependentes">
+          <End Type="CasemiDesenvolvimentoModel.PessoaDependentes" Role="PessoaDependentes" Multiplicity="0..1" />
+          <End Type="CasemiDesenvolvimentoModel.OrdensServico" Role="OrdensServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PessoaDependentes">
+              <PropertyRef Name="PessoaDependenteID" />
+            </Principal>
+            <Dependent Role="OrdensServico">
+              <PropertyRef Name="DependenteID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServico_Pessoas">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="0..1" />
+          <End Type="CasemiDesenvolvimentoModel.OrdensServico" Role="OrdensServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="OrdensServico">
+              <PropertyRef Name="FornecedorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServico_Pessoas1">
+          <End Type="CasemiDesenvolvimentoModel.Pessoas" Role="Pessoas" Multiplicity="0..1" />
+          <End Type="CasemiDesenvolvimentoModel.OrdensServico" Role="OrdensServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pessoas">
+              <PropertyRef Name="PessoaID" />
+            </Principal>
+            <Dependent Role="OrdensServico">
+              <PropertyRef Name="AssociadoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdensServico_Servicos">
+          <End Type="CasemiDesenvolvimentoModel.Servicos" Role="Servicos" Multiplicity="0..1" />
+          <End Type="CasemiDesenvolvimentoModel.OrdensServico" Role="OrdensServico" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicos">
+              <PropertyRef Name="ServicoID" />
+            </Principal>
+            <Dependent Role="OrdensServico">
+              <PropertyRef Name="ServicoID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1599,47 +1641,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OrdensServico">
-            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.OrdensServico">
-              <MappingFragment StoreEntitySet="OrdensServico">
-                <ScalarProperty Name="ValorDesconto" ColumnName="ValorDesconto" />
-                <ScalarProperty Name="Encerrada" ColumnName="Encerrada" />
-                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
-                <ScalarProperty Name="Valor" ColumnName="Valor" />
-                <ScalarProperty Name="ServicoID" ColumnName="ServicoID" />
-                <ScalarProperty Name="AssociadoID" ColumnName="AssociadoID" />
-                <ScalarProperty Name="FornecedorID" ColumnName="FornecedorID" />
-                <ScalarProperty Name="FechamentoUsuarioID" ColumnName="FechamentoUsuarioID" />
-                <ScalarProperty Name="FechamentoDataHora" ColumnName="FechamentoDataHora" />
-                <ScalarProperty Name="AberturaUsuarioID" ColumnName="AberturaUsuarioID" />
-                <ScalarProperty Name="AberturaDataHora" ColumnName="AberturaDataHora" />
-                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
-                <ScalarProperty Name="OrdemServicoID" ColumnName="OrdemServicoID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PagamentoTipos">
             <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PagamentoTipos">
               <MappingFragment StoreEntitySet="PagamentoTipos">
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="TipoPagamentoID" ColumnName="TipoPagamentoID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PessoaAssociado">
-            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaAssociado">
-              <MappingFragment StoreEntitySet="PessoaAssociado">
-                <ScalarProperty Name="Afastado" ColumnName="Afastado" />
-                <ScalarProperty Name="Aposentado" ColumnName="Aposentado" />
-                <ScalarProperty Name="AssociadoDesde" ColumnName="AssociadoDesde" />
-                <ScalarProperty Name="LimiteDeCredito" ColumnName="LimiteDeCredito" />
-                <ScalarProperty Name="RendaMensal" ColumnName="RendaMensal" />
-                <ScalarProperty Name="Profissao" ColumnName="Profissao" />
-                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
-                <ScalarProperty Name="CodigoAssociadoAntigo" ColumnName="CodigoAssociadoAntigo" />
-                <ScalarProperty Name="CodigoAssociado" ColumnName="CodigoAssociado" />
-                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
-                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1802,6 +1808,7 @@
           <EntitySetMapping Name="Servicos">
             <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.Servicos">
               <MappingFragment StoreEntitySet="Servicos">
+                <ScalarProperty Name="DescontoParaAssociados" ColumnName="DescontoParaAssociados" />
                 <ScalarProperty Name="Nome" ColumnName="Nome" />
                 <ScalarProperty Name="ServicoID" ColumnName="ServicoID" />
               </MappingFragment>
@@ -1828,6 +1835,45 @@
               <MappingFragment StoreEntitySet="UserProfile">
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PessoaAssociado">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.PessoaAssociado">
+              <MappingFragment StoreEntitySet="PessoaAssociado">
+                <ScalarProperty Name="Afastado" ColumnName="Afastado" />
+                <ScalarProperty Name="Aposentado" ColumnName="Aposentado" />
+                <ScalarProperty Name="AssociadoAmisegDesde" ColumnName="AssociadoAmisegDesde" />
+                <ScalarProperty Name="AssociadoAmiseg" ColumnName="AssociadoAmiseg" />
+                <ScalarProperty Name="AssociadoDesde" ColumnName="AssociadoDesde" />
+                <ScalarProperty Name="LimiteDeCredito" ColumnName="LimiteDeCredito" />
+                <ScalarProperty Name="RendaMensal" ColumnName="RendaMensal" />
+                <ScalarProperty Name="Profissao" ColumnName="Profissao" />
+                <ScalarProperty Name="DepartamentoID" ColumnName="DepartamentoID" />
+                <ScalarProperty Name="CodigoAssociadoAntigo" ColumnName="CodigoAssociadoAntigo" />
+                <ScalarProperty Name="CodigoAssociado" ColumnName="CodigoAssociado" />
+                <ScalarProperty Name="Matricula" ColumnName="Matricula" />
+                <ScalarProperty Name="PessoaID" ColumnName="PessoaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdensServico">
+            <EntityTypeMapping TypeName="CasemiDesenvolvimentoModel.OrdensServico">
+              <MappingFragment StoreEntitySet="OrdensServico">
+                <ScalarProperty Name="Encerrada" ColumnName="Encerrada" />
+                <ScalarProperty Name="Observacao" ColumnName="Observacao" />
+                <ScalarProperty Name="ValorDesconto" ColumnName="ValorDesconto" />
+                <ScalarProperty Name="Valor" ColumnName="Valor" />
+                <ScalarProperty Name="ServicoID" ColumnName="ServicoID" />
+                <ScalarProperty Name="DependenteID" ColumnName="DependenteID" />
+                <ScalarProperty Name="AssociadoID" ColumnName="AssociadoID" />
+                <ScalarProperty Name="FornecedorID" ColumnName="FornecedorID" />
+                <ScalarProperty Name="FechamentoUsuarioID" ColumnName="FechamentoUsuarioID" />
+                <ScalarProperty Name="FechamentoDataHora" ColumnName="FechamentoDataHora" />
+                <ScalarProperty Name="AberturaUsuarioID" ColumnName="AberturaUsuarioID" />
+                <ScalarProperty Name="AberturaDataHora" ColumnName="AberturaDataHora" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="OrdemServicoID" ColumnName="OrdemServicoID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

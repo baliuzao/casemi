@@ -11,9 +11,7 @@
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.DependenteTipos" Width="1.5" PointX="0.75" PointY="24.125" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.FormasPagamento" Width="1.5" PointX="5.75" PointY="8.75" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.FormasPagamentoParcelas" Width="1.5" PointX="8" PointY="8.375" />
-        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.OrdensServico" Width="1.5" PointX="6" PointY="24" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PagamentoTipos" Width="1.5" PointX="0.75" PointY="5.375" />
-        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaAssociado" Width="1.5" PointX="6" PointY="19.125" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaContatos" Width="1.5" PointX="3" PointY="40.375" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaDependentes" Width="1.5" PointX="3" PointY="22.25" />
         <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaDocumentos" Width="1.5" PointX="3" PointY="43.75" />
@@ -36,13 +34,8 @@
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_ContasPagar_ContasPagar" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_ContasPagar_PagamentoTipos" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_ContasPagar_PlanoContas" />
-        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaDependentes_DependenteTipos" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_FormasPagamentoParcelas_FormasPagamento" />
-        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas" />
-        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1" />
-        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos" />
-        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaContatos_Pessoas" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaDependentes_Pessoas" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaDocumentos_Pessoas" />
@@ -56,6 +49,14 @@
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_Produtos_ProdutoGrupos" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_Produtos_UnidadesDeMedida" />
         <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_Produtos_UnidadesDeMedida1" />
+        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.PessoaAssociado" Width="1.5" PointX="6" PointY="18.75" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Departamentos" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_PessoaAssociado_Pessoas" />
+        <EntityTypeShape EntityType="CasemiDesenvolvimentoModel.OrdensServico" Width="1.5" PointX="6" PointY="24.125" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_PessoaDependentes" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Pessoas1" />
+        <AssociationConnector Association="CasemiDesenvolvimentoModel.FK_OrdensServico_Servicos" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

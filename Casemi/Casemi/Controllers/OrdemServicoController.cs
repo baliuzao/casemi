@@ -77,7 +77,7 @@ namespace Casemi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "OrdemServicoID,AberturaDataHora,AberturaUsuarioID,FornecedorNome,AssociadoID,AssociadoNome,ServicoID,ServicoNome,Observacao")] OrdemServicoCreate ordemServicoCreate)
+        public ActionResult Create([Bind(Include = "OrdemServicoID,AberturaDataHora,AberturaUsuarioID,FornecedorNome,AssociadoID,AssociadoNome,ServicoID,ServicoNome,DependenteID,DependenteNome,Observacao")] OrdemServicoCreate ordemServicoCreate)
         {
             ordemServicoCreate.OrdemServicoID = Guid.NewGuid();
             ordemServicoCreate.AberturaDataHora = DateTime.Now;
@@ -96,6 +96,7 @@ namespace Casemi.Controllers
                 ordemServico.AberturaDataHora = ordemServicoCreate.AberturaDataHora;
                 ordemServico.AberturaUsuarioID = ordemServicoCreate.AberturaUsuarioID;
                 ordemServico.AssociadoID = ordemServicoCreate.AssociadoID;
+                ordemServico.DependenteID = ordemServicoCreate.DependenteID;
                 ordemServico.ServicoID = ordemServicoCreate.ServicoID;
                 ordemServico.Observacao = ordemServicoCreate.Observacao;
                 ordemServico.Encerrada = ordemServicoCreate.Encerrada;
@@ -136,6 +137,12 @@ namespace Casemi.Controllers
             if (ordensServico.Pessoas != null) ordemServicoEdit.FornecedorNome = ordensServico.Pessoas.Nome;
             ordemServicoEdit.AssociadoID = ordensServico.AssociadoID;
             ordemServicoEdit.AssociadoNome = ordensServico.Pessoas1.Nome;
+
+
+            ordemServicoEdit.DependenteID = ordensServico.DependenteID;
+            
+            if (ordensServico.PessoaDependentes != null) ordemServicoEdit.DependenteNome = ordensServico.PessoaDependentes.Nome;
+
             ordemServicoEdit.ServicoID = ordensServico.ServicoID;
             ordemServicoEdit.ServicoNome = ordensServico.Servicos.Nome;
             ordemServicoEdit.Valor = ordensServico.Valor;
@@ -150,7 +157,7 @@ namespace Casemi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "OrdemServicoID,Codigo,AberturaDataHora,AberturaUsuarioID,FornecedorID,FornecedorNome,AssociadoID,AssociadoNome,ServicoID,ServicoNome,Valor,Observacao,Encerrada,ValorDesconto")] OrdemServicoEdit ordemServicoEdit)
+        public ActionResult Edit([Bind(Include = "OrdemServicoID,Codigo,AberturaDataHora,AberturaUsuarioID,FornecedorID,FornecedorNome,AssociadoID,AssociadoNome,DependenteID,DependenteNome,ServicoID,ServicoNome,Valor,Observacao,Encerrada,ValorDesconto")] OrdemServicoEdit ordemServicoEdit)
         {
 
             if (ModelState.IsValid)
@@ -218,6 +225,20 @@ namespace Casemi.Controllers
                 id = m.PessoaID,
                 value = m.Nome,
                 label = m.Nome.ToString()
+            }), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AutoCompleteDependente(string term, Guid associadoID)
+        {
+            PessoaDependentes[] matching = string.IsNullOrWhiteSpace(term) ?
+            db.PessoaDependentes.ToArray() :
+            db.PessoaDependentes.Where(p => p.Nome.ToUpper().Contains(term.ToUpper()) && p.PessoaID == associadoID).OrderBy(p => p.Nome).ToArray();
+
+            return Json(matching.Select(m => new
+            {
+                id = m.PessoaDependenteID,
+                value = m.Nome,
+                label = m.Nome.ToString() + " - " + m.CodigoAssociado.ToString()
             }), JsonRequestBehavior.AllowGet);
         }
 

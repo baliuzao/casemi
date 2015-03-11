@@ -21,6 +21,7 @@ namespace Casemi.Models
     
         public System.Guid ServicoID { get; set; }
         public string Nome { get; set; }
+        public double DescontoParaAssociados { get; set; }
     
         public virtual ICollection<OrdensServico> OrdensServico { get; set; }
     }

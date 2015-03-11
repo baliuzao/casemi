@@ -23,6 +23,12 @@
                 @Html.EditorFor(model => model.CodigoAssociadoAntigo, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CodigoAssociadoAntigo, "", new { @class = "text-danger" })
             </div>
+
+            @Html.LabelFor(model => model.AssociadoDesde, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.AssociadoDesde, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AssociadoDesde, "", new { @class = "text-danger" })
+            </div>
         </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Matricula, htmlAttributes: new { @class = "control-label col-md-1" })
@@ -43,7 +49,6 @@
                 @Html.ValidationMessageFor(model => model.DepartamentoID, "", new { @class = "text-danger" })
             </div>            
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.RendaMensal, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-3">
@@ -57,13 +62,21 @@
                 @Html.ValidationMessageFor(model => model.LimiteDeCredito, "", new { @class = "text-danger" })
             </div>
 
-            @Html.LabelFor(model => model.AssociadoDesde, htmlAttributes: new { @class = "control-label col-md-1" })
+           
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.AssociadoAmiseg, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-3">
-                @Html.EditorFor(model => model.AssociadoDesde, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.AssociadoDesde, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.AssociadoAmiseg, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AssociadoAmiseg, "", new { @class = "text-danger" })
+            </div>
+
+            @Html.LabelFor(model => model.AssociadoAmisegDesde, htmlAttributes: new { @class = "control-label col-md-1" })
+            <div class="col-md-3">
+                @Html.EditorFor(model => model.AssociadoAmisegDesde, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.AssociadoAmisegDesde, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Aposentado, htmlAttributes: new { @class = "control-label col-md-1" })
             <div class="col-md-3">
@@ -77,7 +90,6 @@
                 @Html.ValidationMessageFor(model => model.Afastado, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group" id="pessoaAssociadoFormMessage" hidden>
             <div class="col-md-offset-10 col-md-2">
                 <h4>
@@ -89,7 +101,7 @@
         </div>
 
         <div class="form-group">
-            <div class="col-md-offset-10 col-md-2">
+            <div class="col-md-12 text-right">
                 <button type="submit" class="btn btn-success pull-right" id="btnPessoaAssociadoSubmit" data-loading-text="Aguarde..." autocomplete="off">
                     <i class="glyphicon glyphicon-refresh"></i> Atualizar
                 </button>

@@ -20,9 +20,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.AssociadoID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.TextBoxFor(Model => Model.AssociadoNome, new { @class = "autocomplete-with-hidden form-control", data_url = Url.Action("AutoCompleteAssociado", "OrdemServico") })
+                @Html.TextBoxFor(Model => Model.AssociadoNome, new { @class = "associadoAutoCompleteWithHidden form-control", data_url = Url.Action("AutoCompleteAssociado", "OrdemServico") })
                 @Html.HiddenFor(Model => Model.AssociadoID)
                 @Html.ValidationMessageFor(model => model.AssociadoNome, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DependenteID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(Model => Model.DependenteNome, new { @class = "dependenteAutoCompleteWithHidden form-control", data_url = Url.Action("AutoCompleteDependente", "OrdemServico") })
+                @Html.HiddenFor(Model => Model.DependenteID)
+                @Html.ValidationMessageFor(model => model.DependenteNome, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -43,9 +52,6 @@
             </div>
         </div>
 
-
-
-
         <div class="col-md-12 text-right">
             <a href="@Url.Action("Index","OrdemServico", null)" class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i></a>
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-floppy-disk"></i> Salvar</button>
@@ -64,7 +70,7 @@
             $('.autocomplete-with-hidden').autocomplete({
                 minLength: 0,
                 source: function (request, response) {
-                    var url = $(this.element).data('url');
+                    var url = $(this.element).data('url');                    
 
                     $.getJSON(url, { term: request.term }, function (data) {
                         response(data);
@@ -79,8 +85,60 @@
                     }
                 }
             });
-        })
+        });
+        
+
+
+        $(function () {
+            $('.associadoAutoCompleteWithHidden').autocomplete({
+                minLength: 0,
+                source: function (request, response) {
+                    var url = $(this.element).data('url');
+                    var associadoID = $('#AssociadoID').val();
+
+                    $.getJSON(url, { term: request.term, associadoID: associadoID }, function (data) {
+                        response(data);
+                    })
+                }
+                , select: function (event, ui) {
+                    $(event.target).next('input[type=hidden]').val(ui.item.id);
+                    $("#DependenteNome").val('');
+                }
+                , change: function (event, ui) {
+                    if (!ui.item) {
+                        $(event.target).val('').next('input[type=hidden]').val('');
+                        $("#DependenteNome").val('');
+                    }
+                }
+            });
+        });
+
+        $(function () {
+            $('.dependenteAutoCompleteWithHidden').autocomplete({
+                minLength: 0,
+                source: function (request, response) {
+                    var url = $(this.element).data('url');
+                    var associadoID = $('#AssociadoID').val();
+                    
+                    $.getJSON(url, { term: request.term, associadoID: associadoID }, function (data) {
+                        response(data);
+                    })
+                }
+                , select: function (event, ui) {
+                    $(event.target).next('input[type=hidden]').val(ui.item.id);
+                    
+                }
+                , change: function (event, ui) {
+                    if (!ui.item) {
+                        $(event.target).val('').next('input[type=hidden]').val('');
+
+
+                    }
+                }
+            });
+        });
 
 
     </script>
 }
+

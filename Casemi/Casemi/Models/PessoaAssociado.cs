@@ -22,7 +22,9 @@ namespace Casemi.Models
         public string Profissao { get; set; }
         public Nullable<decimal> RendaMensal { get; set; }
         public Nullable<decimal> LimiteDeCredito { get; set; }
-        public System.DateTime AssociadoDesde { get; set; }
+        public Nullable<System.DateTime> AssociadoDesde { get; set; }
+        public bool AssociadoAmiseg { get; set; }
+        public Nullable<System.DateTime> AssociadoAmisegDesde { get; set; }
         public bool Aposentado { get; set; }
         public bool Afastado { get; set; }
     

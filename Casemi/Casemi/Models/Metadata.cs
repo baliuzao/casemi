@@ -18,10 +18,10 @@ namespace Casemi.Models
         public string Nome { get; set; }
 
         [DataType(DataType.EmailAddress)]
-        [Display(Name="e-Mail")]
+        [Display(Name = "e-Mail")]
         public string Email { get; set; }
-        
-        [Display(Name="Observação")]
+
+        [Display(Name = "Observação")]
         [DataType(DataType.MultilineText)]
         public string Observacao { get; set; }
 
@@ -44,16 +44,16 @@ namespace Casemi.Models
 
     public class PessoaFisicaMetadata
     {
-    [HiddenInput(DisplayValue = false)]
+        [HiddenInput(DisplayValue = false)]
         public System.Guid PessoaID { get; set; }
 
         [Display(Name = "CPF")]
         //[RegularExpression(@"^\d{3}\.\d{3}\.\d{3}-\d{2}$", ErrorMessage = "Formato do CPF Inválido. O formato deve ser 000.000.000-00")]
         public string CPF { get; set; }
-        
+
         [Display(Name = "Sexo")]
         public string Sexo { get; set; }
-        
+
         [Display(Name = "Nascimento")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
@@ -61,10 +61,10 @@ namespace Casemi.Models
 
         [Display(Name = "Naturalidade")]
         public string Naturalidade { get; set; }
-        
+
         [Display(Name = "Pai")]
         public string NomeDoPai { get; set; }
-        
+
         [Display(Name = "Mãe")]
         public string NomeDaMae { get; set; }
 
@@ -73,16 +73,16 @@ namespace Casemi.Models
 
     public class PessoaJuridicaMetadata
     {
-        [HiddenInput(DisplayValue=false)]
+        [HiddenInput(DisplayValue = false)]
         public System.Guid PessoaID { get; set; }
-        
-        [Display(Name="CNPJ")]
-        [RegularExpression(@"^\d{2}.?\d{3}.?\d{3}/?\d{4}-?\d{2}$", ErrorMessage="Formato do CNPJ Inválido. O formato deve ser 00.000.000/0000-00")]
+
+        [Display(Name = "CNPJ")]
+        [RegularExpression(@"^\d{2}.?\d{3}.?\d{3}/?\d{4}-?\d{2}$", ErrorMessage = "Formato do CNPJ Inválido. O formato deve ser 00.000.000/0000-00")]
         public string CNPJ { get; set; }
-        
+
         [Display(Name = "Inscrição Municipal")]
         public string InscricaoMunicipal { get; set; }
-        
+
         [Display(Name = "Inscrição Estadual")]
         public string InscricaoEstadual { get; set; }
 
@@ -91,7 +91,7 @@ namespace Casemi.Models
 
     public class PessoaAssociadoMetadata
     {
-        [HiddenInput(DisplayValue=false)]
+        [HiddenInput(DisplayValue = false)]
         public System.Guid PessoaID { get; set; }
 
         [DataType(DataType.Text)]
@@ -99,12 +99,12 @@ namespace Casemi.Models
         public string Matricula { get; set; }
 
         [Required]
-        [Display(Name = "Código")]        
+        [Display(Name = "Código")]
         public string CodigoAssociado { get; set; }
 
         [Display(Name = "Cód. Antigo")]
         public string CodigoAssociadoAntigo { get; set; }
-        
+
         [Display(Name = "Departamento")]
         public Nullable<System.Guid> DepartamentoID { get; set; }
 
@@ -113,7 +113,7 @@ namespace Casemi.Models
 
         [Display(Name = "Renda Mensal")]
         [DataType(DataType.Currency)]
-        [DisplayFormat(DataFormatString="{0:F2}")]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
         public Nullable<decimal> RendaMensal { get; set; }
 
         [Display(Name = "Crédito")]
@@ -126,6 +126,15 @@ namespace Casemi.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> AssociadoDesde { get; set; }
+
+
+        [Display(Name = "Amiseg")]
+        public Nullable<bool> AssociadoAmiseg { get; set; }
+
+        [Display(Name = "Amiseg Desde")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> AssociadoAmisegDesde { get; set; }
 
         [Display(Name = "Aposentado")]
         public Nullable<bool> Aposentado { get; set; }
@@ -140,12 +149,12 @@ namespace Casemi.Models
     {
         [HiddenInput(DisplayValue = false)]
         public System.Guid PessoaDependenteID { get; set; }
-        
+
         [HiddenInput(DisplayValue = false)]
         public System.Guid PessoaID { get; set; }
 
         [Required]
-        [Display(Name="Código")]
+        [Display(Name = "Código")]
         public string CodigoAssociado { get; set; }
 
         [Display(Name = "Cód. Antigo")]
@@ -188,7 +197,7 @@ namespace Casemi.Models
         public System.Guid ProdutoID { get; set; }
 
         [Required]
-        [Display(Name="Cód. Barras")]
+        [Display(Name = "Cód. Barras")]
         [DataType(DataType.Text)]
         public string CodigoDeBarras { get; set; }
 
@@ -250,7 +259,7 @@ namespace Casemi.Models
         [Required]
         public System.Guid OrdemServicoID { get; set; }
         [Required]
-        [Display(Name="Código")]
+        [Display(Name = "Código")]
         [DataType(DataType.Text)]
         public string Codigo { get; set; }
         [Required]
@@ -260,6 +269,7 @@ namespace Casemi.Models
         [Required]
         [Display(Name = "Aberta por")]
         public Nullable<System.Guid> AberturaUsuarioID { get; set; }
+
         [Display(Name = "Fechada em")]
         [DataType(DataType.DateTime)]
         public Nullable<System.DateTime> FechamentoDataHora { get; set; }
@@ -270,6 +280,11 @@ namespace Casemi.Models
         [Required]
         [Display(Name = "Associado")]
         public Nullable<System.Guid> AssociadoID { get; set; }
+
+        [Display(Name = "Dependente")]
+        public Nullable<System.Guid> DependenteID { get; set; }
+
+
         [Required]
         [Display(Name = "Serviço")]
         public Nullable<System.Guid> ServicoID { get; set; }
@@ -284,5 +299,22 @@ namespace Casemi.Models
         public virtual Pessoas Pessoas { get; set; }
         public virtual Pessoas Pessoas1 { get; set; }
         public virtual Servicos Servicos { get; set; }
+    }
+
+
+    public class ServicosMetadata
+    {
+        [HiddenInput(DisplayValue = false)]
+        public System.Guid ServicoID { get; set; }
+
+        [Display(Name = "Nome")]
+        public string Nome { get; set; }
+
+        [Display(Name = "Desconto")]
+        [DataType(DataType.Currency)]
+        [Range(0, 100)]
+        public double DescontoParaAssociados { get; set; }
+
+        public virtual ICollection<OrdensServico> OrdensServico { get; set; }
     }
 }

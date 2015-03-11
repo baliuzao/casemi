@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Casemi.Models;
+using PagedList;
 
 namespace Casemi.Controllers
 {
@@ -17,9 +18,20 @@ namespace Casemi.Controllers
         private CasemiDesenvolvimentoEntities db = new CasemiDesenvolvimentoEntities();
 
         // GET: Servicos
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string currentFilter, int? page)
         {
-            IQueryable<Servicos> servicos = db.Servicos;
+            var servicos = db.Servicos.AsQueryable();
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
 
             if (!string.IsNullOrEmpty(searchString))
             {
@@ -27,8 +39,18 @@ namespace Casemi.Controllers
                         x => x.Nome.Contains(searchString)
                 );
             }
+            else
+            {
+                searchString = currentFilter;
+            }
 
-            return View(servicos.OrderBy(x => x.Nome).ToList());
+
+
+            int pageSize = 25;
+            int pageNumber = (page ?? 1);
+
+
+            return View(servicos.OrderBy(x => x.Nome).ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Servicos/Details/5
@@ -58,7 +80,7 @@ namespace Casemi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ServicoID,Nome")] Servicos servicos)
+        public ActionResult Create([Bind(Include = "ServicoID,Nome,DescontoParaAssociados")] Servicos servicos)
         {
             if (ModelState.IsValid)
             {
@@ -92,13 +114,13 @@ namespace Casemi.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ServicoID,Nome")] Servicos servicos)
+        public ActionResult Edit([Bind(Include = "ServicoID,Nome,DescontoParaAssociados")] Servicos servicos)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(servicos).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", new { searchString = servicos.Nome });
+                return RedirectToAction("Index");
             }
 
             return View(servicos);

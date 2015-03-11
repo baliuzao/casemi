@@ -22,12 +22,14 @@ namespace Casemi.Models
         public Nullable<System.Guid> FechamentoUsuarioID { get; set; }
         public Nullable<System.Guid> FornecedorID { get; set; }
         public Nullable<System.Guid> AssociadoID { get; set; }
+        public Nullable<System.Guid> DependenteID { get; set; }
         public Nullable<System.Guid> ServicoID { get; set; }
         public Nullable<decimal> Valor { get; set; }
+        public Nullable<decimal> ValorDesconto { get; set; }
         public string Observacao { get; set; }
         public Nullable<bool> Encerrada { get; set; }
-        public Nullable<decimal> ValorDesconto { get; set; }
     
+        public virtual PessoaDependentes PessoaDependentes { get; set; }
         public virtual Pessoas Pessoas { get; set; }
         public virtual Pessoas Pessoas1 { get; set; }
         public virtual Servicos Servicos { get; set; }

@@ -20,9 +20,13 @@ namespace Casemi.Models
         [Required]
         [Display(Name = "Associado")]
         public Nullable<System.Guid> AssociadoID { get; set; }
-        
-        
+
         public string AssociadoNome { get; set; }
+
+        [Display(Name = "Dependente")]
+        public Nullable<System.Guid> DependenteID { get; set; }
+        public string DependenteNome { get; set; }
+
 
         [Required]
         [Display(Name = "Serviço")]

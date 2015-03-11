@@ -45,12 +45,11 @@ namespace Casemi.Controllers
 
             
 
-            int pageSize = 10;
+            int pageSize = 25;
             int pageNumber = (page ?? 1);
 
 
             return View(pessoas.OrderBy(x => x.Nome).ToPagedList(pageNumber, pageSize));
-            //return View(pessoas.OrderBy(x => x.Nome).ToList());
         }
 
         // GET: Pessoas/Details/5
